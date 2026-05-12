@@ -1,17 +1,16 @@
 /* General definitions */
 :root {
     --purple-brand-color: #43243d;
-
-    --accent-color: #8672FF;
-    --base-color: white;
-    --text-color: #2E2B41;
-    --input-color: #F3F0FF;
+    --orange-brand-color: #ff4a02;
+    --darkGray-brand-color: #242424;
+    --text-color: white;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
+    color : var(--text-color)
 }
 html{
     box-sizing: border-box;
@@ -45,7 +44,6 @@ main {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
 }
 
 .auth-background {
@@ -54,6 +52,26 @@ main {
 
 .prof-background {
     background-image: url(../../../../../uploads/cute2.jpg);
+}
+
+button{
+    background-color: var(--orange-brand-color);
+    color: white;
+    border-radius: 8px;
+}
+
+.container{
+    margin: 40px auto;
+    padding: 20px;
+    width: 75vw;
+    text-align: center;
+    background-color: var(--purple-brand-color);
+    border-radius: 20px;
+}
+
+.inputBox{
+    background-color: var(--darkGray-brand-color);
+    color: var(--text-color);
 }
 
 /* Footer definitions */
