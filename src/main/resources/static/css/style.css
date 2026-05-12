@@ -1,0 +1,66 @@
+/* General definitions */
+:root {
+    --purple-brand-color: #43243d;
+
+    --accent-color: #8672FF;
+    --base-color: white;
+    --text-color: #2E2B41;
+    --input-color: #F3F0FF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+html{
+    box-sizing: border-box;
+}
+
+
+.wrapper{
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr) ;
+}
+
+/* Responsive definitioner */
+/* Media queries og grids her */
+
+/* Header definitions */
+header {
+}
+
+/* Navigation definitions */
+nav {
+}
+
+/* Main definitions */
+main {
+}
+
+.background-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.auth-background {
+    background-image: url(../image/smokePurpleBlue.png);
+}
+
+.prof-background {
+    background-image: url(../../../../../uploads/cute2.jpg);
+}
+
+/* Footer definitions */
+footer {
+    text-align: center;
+    background-color: var(--purple-brand-color);
+    color: white;
+    width: 100%;
+    padding: 20px;
+}
