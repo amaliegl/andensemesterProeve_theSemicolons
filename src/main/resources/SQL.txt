@@ -1,0 +1,8 @@
+INSERT INTO cards (name, type, set_abbreviation, rarity, image_url, reference_url)
+VALUES ('Clowning Around', 'Sorcery', 'UNF', 'Common', 'https://gatherer-static.wizards.com/Cards/medium/321287A8078AF9F4D6F8CE39542CFC5AA2784525020F1464F662B18FB7FEF4D8.webp', 'https://gatherer.wizards.com/UNF/en-us/6/clowning-around');
+
+INSERT INTO cards (name, type, set_abbreviation, rarity, image_url, reference_url)
+VALUES ('Baaallerina', 'Creature', 'UNF', 'Uncommon', 'https://gatherer-static.wizards.com/Cards/medium/A8CEDC222F52AAA5D87455E6503A7666D538F634267F669C449223A1319AFF40.webp', 'https://gatherer.wizards.com/UNF/en-us/35/baaallerina'),
+('Blessed Sanctuary', 'Enchantment', 'JMP', 'Rare', 'https://gatherer-static.wizards.com/Cards/medium/22BC5C50A2876038316D98343815FCC7F710934CC26517D128DA5FA2E29DF761.webp', 'https://gatherer.wizards.com/JMP/en-us/1/blessed-sanctuary'),
+('Release the Dogs', 'Sorcery', 'TDC', 'Uncommon', 'https://gatherer-static.wizards.com/Cards/medium/EF798E6798E44C615812BA16D5ADE676A603227867F329665A12836155D32F6A.webp', 'https://gatherer.wizards.com/TDC/en-us/127/release-the-dogs'),
+('Trusty Retriever', 'Creature', 'JMP', 'Common', 'https://gatherer-static.wizards.com/Cards/medium/EC93D897C5F2ED6DA027312DA7A637058253E2E96539F02B5C27E03181C6F825.webp', 'https://gatherer.wizards.com/JMP/en-us/8/trusty-retriever');

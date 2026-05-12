@@ -1,6 +1,3 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS cards;
-
 CREATE TABLE users (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        username VARCHAR(50) NOT NULL,
