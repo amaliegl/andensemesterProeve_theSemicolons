@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthenticationController {
 
-    @GetMapping("/login")
+    @GetMapping("/login2")
     public String getLoginPage() {
         return "authentication/login";
     }
 
-    @GetMapping("/login2")
+    @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
         return "authentication/login";

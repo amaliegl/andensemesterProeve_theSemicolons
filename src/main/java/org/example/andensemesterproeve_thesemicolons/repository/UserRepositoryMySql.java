@@ -1,11 +1,12 @@
 package org.example.andensemesterproeve_thesemicolons.repository;
 
-import org.example.andensemesterproeve_thesemicolons.domain.Role_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryMySql implements IUserRepository {
@@ -16,23 +17,25 @@ public class UserRepositoryMySql implements IUserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<User> findAllUsers() {
+    @Override
+    public Optional<User> findById(int id) {
         String sql = """
-                SELECT
-                user_id,
-                user_name,
-                user_email,
-                user_role,
-                user_phone
-                FROM users
+                SELECT * FROM users WHERE id = ?
                 """;
-        //Intentionally selecting specific columns to avoid fetching passwords
 
-        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) ->
+        List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new User(
-                        rs.getInt("id")
-                ));
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        Title_ENUM.valueOf(rs.getString("user_role"))
+                ), id
+        );
 
-        return users;
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(results.get(0));
     }
 }

@@ -1,6 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
-public enum Role_ENUM {
+public enum Title_ENUM {
     Spiller,
     Arrangoer,
     Admin
