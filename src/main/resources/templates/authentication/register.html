@@ -10,25 +10,25 @@
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="script.js" defer></script>
 </head>
-<body>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+    </header>
+    <main>
 <div class="container">
     <h2>Opret bruger</h2>
     <form method="post" onsubmit="return validateTermsAndConditionsCheckbox(event)" th:action="@{/register}"
           th:object="${user}">
-        <label class="inputLabel" for="username">Brugernavn:</label>
-        <input type="email" id="username" th:field="*{username}" placeholder="Brugernavn" required>
+        <input class="inputBox" type="email" id="username" th:field="*{username}" placeholder="Brugernavn" required>
         <br>
-        <label class="inputLabel" for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" placeholder="Email" required>
+        <input class="inputBox" type="email" id="email" th:field="*{email}" placeholder="Email" required>
         <br>
-        <label class="inputLabel" for="password">Password:</label>
-        <input type="password" id="password" th:field="*{password}" placeholder="Password" required>
+        <input class="inputBox" type="password" id="password" th:field="*{password}" placeholder="Password" required>
         <br>
-        <label class="inputLabel" for="name">Gentag password:</label>
-        <input type="text" id="name" required placeholder="Gentag password">
+        <input class="inputBox" type="text" id="name" required placeholder="Gentag password">
         <br>
         <br>
-
         <div class="termsandconditionsbox">
             <label>
                 <input class="termsandconditions" type="checkbox" name="terms" style="margin-bottom:15px">  Jeg accepterer <a href="#" class="link" onclick="termsAndConditionsClick()">privatlivspolitikken</a>
@@ -37,12 +37,16 @@
 
         <div class="error" th:text="${error}"></div>
         <p id="errorMsg" class="error"></p>
-        <button type="submit">Opret bruger</button>
+
+        <div class="button-group">
+            <button class="submitButton" type="submit">Opret bruger</button>
+            <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/login}'|">Til login</button>
+        </div>
     </form>
-    <div>
-        <button onclick="window.location.href='authentication/login';" class="GFG">Til login</button>
-    </div>
+
 </div>
+    </main>
 <div th:insert="~{parts/footer:: footer}"></div>
+</div>
 </body>
 </html>

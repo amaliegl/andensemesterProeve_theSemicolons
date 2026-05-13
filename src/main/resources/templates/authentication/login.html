@@ -26,7 +26,7 @@
         <div class="error" th:text="${error}"></div>
         <div class="button-group">
         <button class="submitButton" type="submit">Log ind</button>
-        <button class="changePageButton" type="button" th:onclick="/register">Opret bruger</button>
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/register}'|">Opret bruger</button>
         </div>
     </form>
 </div>

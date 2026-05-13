@@ -40,7 +40,7 @@ public class AuthenticationController {
             return "redirect:/home";
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
-            return "login";
+            return "authentication/login";
         }
     }
 
