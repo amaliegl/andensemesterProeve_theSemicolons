@@ -17,6 +17,7 @@ public class UserRepositoryMySql implements IUserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
     public int findIdByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException {
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
 
@@ -54,6 +55,7 @@ public class UserRepositoryMySql implements IUserRepository {
         return Optional.of(results.getFirst());
     }
 
+    @Override
     public List<Card> findAllCardsForUser(User user) {
         String sql = """
                 SELECT * FROM user_cards
@@ -76,6 +78,7 @@ public class UserRepositoryMySql implements IUserRepository {
         );
     }
 
+    @Override
     public List<Deck> findAllDecksForUser(User user) {
         String sql = """
                 SELECT format, name FROM decks WHERE user_id = ?

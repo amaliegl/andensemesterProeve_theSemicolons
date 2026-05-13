@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public interface IUserRepository {
 
-    public int findIdByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException;
+    int findIdByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException;
 
-    public Optional<User> findById(int id);
+    Optional<User> findById(int id);
 
-    public List<Card> findAllCardsForUser(User user);
+    List<Card> findAllCardsForUser(User user);
 
-    public List<Deck> findAllDecksForUser(User user);
+    List<Deck> findAllDecksForUser(User user);
 
-    public List<Integer> findCardIdsForDeck(Deck deck);
+    List<Integer> findCardIdsForDeck(Deck deck);
 }
