@@ -19,16 +19,16 @@
 <div class="container">
     <h2>Login</h2>
     <form th:action="@{/login}" th:object="${user}" method="post">
-        <input class="inputBox" type="text" th:field="*{username}" placeholder="Username" required>
+        <input class="inputBox" type="text" th:field="*{username}" placeholder="Brugernavn" required>
         <br>
-        <input class="inputBox" type="password" th:field="*{password}" placeholder="password" required>
+        <input class="inputBox" type="password" th:field="*{password}" placeholder="Password" required>
 
         <div class="error" th:text="${error}"></div>
-        <button type="submit">Log ind</button>
+        <div class="button-group">
+        <button class="submitButton" type="submit">Log ind</button>
+        <button class="changePageButton" type="button" th:onclick="/register">Opret bruger</button>
+        </div>
     </form>
-    <div>
-        <p>Ikke medlem? <a href="/registrer" class="link">Opret en bruger</a></p>
-    </div>
 </div>
     </main>
 <div th:insert="~{parts/footer:: footer}"></div>

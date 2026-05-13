@@ -1,17 +1,29 @@
-/* General definitions */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 :root {
     --purple-brand-color: #43243d;
+    --LigtPurple-brand-color: #7e5f9b;
     --orange-brand-color: #ff4a02;
     --darkGray-brand-color: #242424;
+    --lightGray-brand-color: #c8c8c8;
     --text-color: white;
+    --txtFont-brand-font: 'montserrat', sans-serif;
+    --headingFont-brand-font: 'orbitron', serif;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
-    color : var(--text-color)
+    color : var(--text-color);
+    font-family: var(--txtFont-brand-font);
 }
+
+h1,h2,h3{
+    font-family: var(--headingFont-brand-font);
+    font-weight: 100;
+}
+
 html{
     box-sizing: border-box;
 }
@@ -55,9 +67,28 @@ main {
 }
 
 button{
-    background-color: var(--orange-brand-color);
-    color: white;
+    color: var(--text-color);
     border-radius: 8px;
+    padding: 3px;
+
+}
+
+.submitButton{
+    background-color: var(--orange-brand-color);
+}
+
+.changePageButton{
+    background-color: var(--LigtPurple-brand-color);
+}
+
+.button-group{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 15px
+
+
 }
 
 .container{
@@ -67,11 +98,19 @@ button{
     text-align: center;
     background-color: var(--purple-brand-color);
     border-radius: 20px;
+    opacity: 92%;
+
 }
 
 .inputBox{
     background-color: var(--darkGray-brand-color);
     color: var(--text-color);
+    border-radius: 8px;
+    padding: 8px;
+    margin: 2px;
+}
+::placeholder{
+    color : var(--lightGray-brand-color)
 }
 
 /* Footer definitions */
