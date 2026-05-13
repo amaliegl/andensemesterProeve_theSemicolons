@@ -5,6 +5,16 @@ import java.util.List;
 public class Deck {
     private int id;
     private String name;
+    private String format;
     private List<Card> cards;
-    //TODO - format her
+
+    public Deck(int id, String name, String format) {
+        this.id = id;
+        this.name = name;
+        this.format = format;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

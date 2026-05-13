@@ -8,4 +8,20 @@ public class Card {
     private Rarity_ENUM rarity;
     private String imageUrl;
     private String referenceUrl;
+    private boolean forSwapping;
+    private boolean visible;
+
+    public Card(int id, String name, Type_ENUM type, String set, Rarity_ENUM rarity,
+                String imageUrl, String referenceUrl, boolean forSwapping,
+                boolean visible) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.set = set;
+        this.rarity = rarity;
+        this.imageUrl = imageUrl;
+        this.referenceUrl = referenceUrl;
+        this.forSwapping = forSwapping;
+        this.visible = visible;
+    }
 }
