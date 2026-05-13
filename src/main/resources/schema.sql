@@ -9,9 +9,9 @@ CREATE TABLE users (
 CREATE TABLE cards (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        name VARCHAR(50) NOT NULL,
-                       type ENUM('Artifact', 'Artifact_Creature', 'Basic_Land', 'Creature', 'Enchantment', 'Enchantment_Creature', 'Instant', 'Kindred_Instant', 'Land', 'Legendary_Creature', 'Legendary_Enchantment_Creature', 'Legendary_Planeswalker', 'Snow_Creature', 'Sorcery') NOT NULL,
+                       type ENUM ('Artifact', 'Artifact_Creature', 'Basic_Land', 'Creature', 'Enchantment', 'Enchantment_Creature', 'Instant', 'Kindred_Instant', 'Land', 'Legendary_Creature', 'Legendary_Enchantment_Creature', 'Legendary_Planeswalker', 'Snow_Creature', 'Sorcery') NOT NULL,
                        set_abbreviation VARCHAR(3) NOT NULL,
-                       rarity ENUM('Common', 'Uncommon', 'Rare', 'Mythic Rare', 'Land') NOT NULL,
+                       rarity ENUM ('Common', 'Uncommon', 'Rare', 'Mythic_Rare', 'Land') NOT NULL,
                        image_url VARCHAR(120) NOT NULL,
                        reference_url VARCHAR(100) NOT NULL
 );
