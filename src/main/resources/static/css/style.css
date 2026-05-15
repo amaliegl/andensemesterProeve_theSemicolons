@@ -17,6 +17,7 @@
     box-sizing: inherit;
     color : var(--text-color);
     font-family: var(--txtFont-brand-font);
+    /*outline: 1px solid red !important; !!!!! til evt test, for at se grænsen på elementer*/
 }
 
 h1,h2,h3{
@@ -27,6 +28,21 @@ h1,h2,h3{
 html{
     box-sizing: border-box;
 }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+}
+
+main{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 
 .wrapper{
@@ -34,6 +50,9 @@ html{
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: minmax(0, 1fr) ;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Responsive definitioner */
@@ -49,6 +68,10 @@ nav {
 
 /* Main definitions */
 main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .background-image {
@@ -95,17 +118,19 @@ button{
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
-    margin: 20px auto;
+    margin: 20px 0;
     width: 95%;
+    box-sizing: border-box;
 
 }
-@media (max-width: 768px){
+@media (max-width: 600px){
     .link-group {
         flex-direction: column;
         align-items: center;
         width: 100%;
         gap: 10px;
-        max-width: 400px;
+        margin: 10px 0;
+
     }
 
     .home-page .container{
