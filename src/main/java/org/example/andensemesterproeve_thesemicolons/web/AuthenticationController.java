@@ -28,11 +28,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
-        User loggedIn = userService.login(user.getUsername(), user.getPassword());
+        User loggedIn = userService.login(user);
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
-            return "redirect:/home";
+            return "redirect:/homePage";
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
             return "authentication/login";
