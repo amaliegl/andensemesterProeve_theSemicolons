@@ -18,22 +18,26 @@ public class UserRepositoryMySql implements IUserRepository {
     }
 
     @Override
-    public int findIdByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException {
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    public Optional<String> findPasswordByUsername(String username) {
+        String sql = """
+                SELECT password FROM users WHERE username = ?
+                """;
 
-        int userId = jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
-                (rs.getInt("id")
-                ), username, password
+        List<String> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                (rs.getString("password")
+                ), username
         );
 
-        return userId;
-        //TODO - fejllogning
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(results.getFirst());
     }
 
     @Override
-    public Optional<User> findById(int id) {
+    public Optional<User> findByUsername(String username) {
         String sql = """
-                SELECT id, username, email, title FROM users WHERE id = ?
+                SELECT id, username, email, title FROM users WHERE username = ?
                 """;
 
         List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
@@ -42,7 +46,7 @@ public class UserRepositoryMySql implements IUserRepository {
                         rs.getString("username"),
                         rs.getString("email"),
                         Title_ENUM.valueOf(rs.getString("title"))
-                ), id
+                ), username
         );
 
         if (results.isEmpty()) {
@@ -58,8 +62,8 @@ public class UserRepositoryMySql implements IUserRepository {
     @Override
     public List<Card> findAllCardsForUser(User user) {
         String sql = """
-                SELECT * FROM user_cards
-                JOIN cards ON cards.id = user_owned_cards.card
+                SELECT * FROM user_owned_cards
+                JOIN cards ON cards.id = user_owned_cards.card_id
                 WHERE user_id = ?
                 """;
 

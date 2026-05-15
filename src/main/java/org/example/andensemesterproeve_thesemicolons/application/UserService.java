@@ -1,6 +1,7 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
+import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,27 +20,32 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User login(String username, String password) {
-        try {
-            int userId = userRepository.findIdByUsernameAndPassword(username, BCrypt.hashpw(password, BCrypt.gensalt()));
+    public User login(User user) {
+        Optional<String> retrievedPassword = userRepository.findPasswordByUsername(user.getUsername());
+        if (retrievedPassword.isEmpty()) {
+            return null;
+        }
 
-            Optional<User> user = userRepository.findById(userId);
-            if (user.isEmpty()) {
+        if (BCrypt.checkpw(user.getPassword(), retrievedPassword.get())) {
+            Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
+
+            if (userFromDb.isEmpty()) {
                 return null;
             }
-            User foundUser = user.get();
+            User foundUser = userFromDb.get();
             fillUserDecksWithTheirCards(foundUser);
 
             return foundUser;
-        } catch (EmptyResultDataAccessException e) {
-            return null;
         }
+
+        return null;
     }
 
     public boolean createUser(User user) {
         try {
             user.validateValues();
         } catch (IllegalArgumentException e) {
+            System.out.println(e);
             return false;
         }
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
