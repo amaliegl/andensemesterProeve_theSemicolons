@@ -10,7 +10,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="background-image auth-background">
+<body class="background-image auth-background home-page">
 <div class="wrapper">
     <header>
         <!-- header indhold -->
@@ -22,11 +22,23 @@
                 <h3>Mine deck </h3>
             </div>
 
-            <div class="container">
+            <div class="container" th:onclick="|window.location.href='@{/myEvents}'|">
                 <h3>Mine events</h3>
             </div>
 
-            <div class="container">
+            <div class="container" th:onclick="|window.location.href='@{/allEvents}'|">
+                <h3>Find events</h3>
+            </div>
+
+            <div class="container" th:onclick="|window.location.href='@{/allEvents}'|">
+                <h3>Find events</h3>
+            </div>
+
+            <div class="container" th:onclick="|window.location.href='@{/allEvents}'|">
+                <h3>Find events</h3>
+            </div>
+
+            <div class="container" th:onclick="|window.location.href='@{/allEvents}'|">
                 <h3>Find events</h3>
             </div>
 
