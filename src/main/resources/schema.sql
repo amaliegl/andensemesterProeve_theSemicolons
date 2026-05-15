@@ -15,3 +15,34 @@ CREATE TABLE cards (
                        image_url VARCHAR(120) NOT NULL,
                        reference_url VARCHAR(100) NOT NULL
 );
+
+CREATE TABLE decks (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       user_id INT NOT NULL,
+                       format VARCHAR(50),
+                       name VARCHAR(50) NOT NULL,
+
+                       CONSTRAINT fk_decks_user_id
+                           FOREIGN KEY (user_id)
+                               REFERENCES users(id)
+);
+
+CREATE TABLE user_owned_cards (
+                                  id INT AUTO_INCREMENT PRIMARY KEY,
+                                  user_id INT NOT NULL,
+                                  card_id INT NOT NULL,
+                                  for_swapping BOOLEAN NOT NULL,
+                                  card_visible BOOLEAN NOT NULL,
+
+                                  CONSTRAINT fk_user_owned_cards_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+                                  CONSTRAINT fk_user_owned_cards_card FOREIGN KEY (card_id) REFERENCES cards(id)
+);
+
+CREATE TABLE deck_cards (
+                            deck_id INT NOT NULL,
+                            user_owned_card_id INT NOT NULL,
+
+                            PRIMARY KEY (deck_id, user_owned_card_id),
+                            CONSTRAINT fk_deck_cards_deck_id FOREIGN KEY (deck_id) REFERENCES decks(id),
+                            CONSTRAINT fk_deck_cards_user_owned_card_id FOREIGN KEY (user_owned_card_id) REFERENCES user_owned_cards(id)
+);
