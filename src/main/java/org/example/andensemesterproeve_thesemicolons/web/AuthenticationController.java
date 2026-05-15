@@ -20,11 +20,6 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @GetMapping("/login2")
-    public String getLoginPage() {
-        return "authentication/login";
-    }
-
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
@@ -48,5 +43,17 @@ public class AuthenticationController {
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         return "authentication/register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user, Model model) {
+        if (userService.createUser(user)) {
+            //bruger oprettet
+            return "authentication/login";
+        } else {
+            //TODO - hvis der ændres i exceptions til verificering, så kom tilbage hertil
+            model.addAttribute("error", "Ugyldig værdi i brugernavn, email eller password");
+            return "authentication/register";
+        }
     }
 }

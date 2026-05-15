@@ -19,4 +19,6 @@ public interface IUserRepository {
     List<Deck> findAllDecksForUser(User user);
 
     List<Integer> findCardIdsForDeck(Deck deck);
+
+    void createStandardUser(User user);
 }

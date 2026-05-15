@@ -101,4 +101,15 @@ public class UserRepositoryMySql implements IUserRepository {
                 rs.getInt("user_owned_card_id"), deck.getId()
         );
     }
+
+    @Override
+    public void createStandardUser(User user) {
+        String sql = """
+                INSERT INTO users (username, password, email, title)
+                VALUES (?, ?, ?, 'Spiller')
+                """;
+
+        jdbcTemplate.update(sql,
+                user.getUsername(), user.getPassword(), user.getEmail());
+    }
 }

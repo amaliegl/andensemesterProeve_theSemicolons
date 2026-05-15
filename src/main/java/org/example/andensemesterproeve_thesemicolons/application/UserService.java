@@ -36,6 +36,19 @@ public class UserService {
         }
     }
 
+    public boolean createUser(User user) {
+        try {
+            user.validateValues();
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
+        //Users are created as "Spiller" per default. Upgrading their user type has to be approved and done by an Admin later on
+        userRepository.createStandardUser(user);
+        return true;
+    }
+
     private void fillUserDecksWithTheirCards(User user) {
         for (int i = 0; i < user.getDecks().size(); i++) {
             List<Integer> cardIds = userRepository.findCardIdsForDeck(user.getDecks().get(i));
