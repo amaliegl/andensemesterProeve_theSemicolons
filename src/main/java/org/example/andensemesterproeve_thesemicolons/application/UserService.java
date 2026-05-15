@@ -1,11 +1,13 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
+import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,7 +38,19 @@ public class UserService {
 
     private void fillUserDecksWithTheirCards(User user) {
         for (int i = 0; i < user.getDecks().size(); i++) {
-            userRepository.findCardIdsForDeck(user.getDecks().get(i));
+            List<Integer> cardIds = userRepository.findCardIdsForDeck(user.getDecks().get(i));
+            fillDeckWithCardsFromCardIdList(user, user.getDecks().get(i), cardIds);
+        }
+    }
+
+    private void fillDeckWithCardsFromCardIdList(User user, Deck deck, List<Integer> cardIds) {
+        for (Integer cardId : cardIds) {
+            for (int j = 0; j < user.getCards().size(); j++) {
+                if (cardId == user.getCards().get(j).getId()) {
+                    deck.addCard(user.getCards().get(j));
+                    j = user.getCards().size();
+                }
+            }
         }
     }
 }

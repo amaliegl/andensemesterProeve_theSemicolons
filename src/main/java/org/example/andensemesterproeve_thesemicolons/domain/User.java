@@ -59,4 +59,8 @@ public class User {
     public List<Deck> getDecks() {
         return decks;
     }
+
+    public List<Card> getCards() {
+        return cards;
+    }
 }

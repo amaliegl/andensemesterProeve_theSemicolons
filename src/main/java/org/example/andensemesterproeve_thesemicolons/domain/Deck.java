@@ -17,4 +17,8 @@ public class Deck {
     public int getId() {
         return id;
     }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
 }

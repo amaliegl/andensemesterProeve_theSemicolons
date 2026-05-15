@@ -24,4 +24,8 @@ public class Card {
         this.forSwapping = forSwapping;
         this.visible = visible;
     }
+
+    public int getId() {
+        return id;
+    }
 }
