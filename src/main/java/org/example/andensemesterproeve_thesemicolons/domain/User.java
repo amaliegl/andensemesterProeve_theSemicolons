@@ -83,7 +83,7 @@ public class User {
         }
 
         //password has to have at least 1 number, 1 uppercase and 1 lowercase letter, no whitespaces and at least 8 characters (max 24)
-        String passwordRegexPattern = "^$(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,24}$";
+        String passwordRegexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,24}$";
         Pattern passwordPattern = Pattern.compile(passwordRegexPattern); //creates pattern
         Matcher passwordMatcher = passwordPattern.matcher(password); //returns a Matcher object
         boolean passwordMatchFound = passwordMatcher.find();
