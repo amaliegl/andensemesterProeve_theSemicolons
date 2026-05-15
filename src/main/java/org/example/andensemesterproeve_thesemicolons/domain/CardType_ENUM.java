@@ -1,6 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
-public enum Type_ENUM {
+public enum CardType_ENUM {
     Artifact,
     Artifact_Creature,
     Basic_Land,

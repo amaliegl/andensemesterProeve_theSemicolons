@@ -71,7 +71,7 @@ public class UserRepositoryMySql implements IUserRepository {
                 new Card(
                         rs.getInt("cards.id"),
                         rs.getString("name"),
-                        Type_ENUM.valueOf(rs.getString("type")),
+                        CardType_ENUM.valueOf(rs.getString("type")),
                         rs.getString("set"),
                         Rarity_ENUM.valueOf(rs.getString("rarity")),
                         rs.getString("image_url"),
