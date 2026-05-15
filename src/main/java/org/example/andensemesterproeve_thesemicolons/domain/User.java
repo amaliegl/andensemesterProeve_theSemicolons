@@ -20,6 +20,10 @@ public class User {
         this.title = title;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -42,5 +46,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void setDecks(List<Deck> decks) {
+        this.decks = decks;
+    }
+
+    public List<Deck> getDecks() {
+        return decks;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }
