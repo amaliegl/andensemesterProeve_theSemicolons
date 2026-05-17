@@ -13,12 +13,14 @@
 <body class="background-image auth-background">
 <div class="wrapper">
     <header>
-        <!-- header indhold -->
         <div th:insert="~{parts/navigation:: nav}"></div>
     </header>
     <main>
         <div class="container">
             <h2>Min profil</h2>
+            <span th:text="|Username: ${user.username}|">Username</span>
+            <br><br>
+            <span th:text="|Email: ${user.email}|">Email</span>
 
         </div>
     </main>
