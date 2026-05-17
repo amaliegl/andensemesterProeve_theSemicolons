@@ -66,6 +66,10 @@ public class User {
         return cards;
     }
 
+    public Title_ENUM getTitle() {
+        return title;
+    }
+
     public void validateValues() {
         if (username == null || username.isEmpty() || username.trim().isEmpty() ||
                 username.contains("slettet") || username.contains("deleted") ||
