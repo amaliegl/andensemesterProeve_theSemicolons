@@ -72,12 +72,12 @@ public class UserRepositoryMySql implements IUserRepository {
                         rs.getInt("cards.id"),
                         rs.getString("name"),
                         CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set"),
+                        rs.getString("set_abbreviation"),
                         Rarity_ENUM.valueOf(rs.getString("rarity")),
                         rs.getString("image_url"),
                         rs.getString("reference_url"),
-                        rs.getBoolean("forSwapping"),
-                        rs.getBoolean("visible")
+                        rs.getBoolean("for_swapping"),
+                        rs.getBoolean("card_visible")
                 ), user.getId()
         );
     }
