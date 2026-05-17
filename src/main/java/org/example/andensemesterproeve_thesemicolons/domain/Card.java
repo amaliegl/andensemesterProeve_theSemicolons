@@ -28,4 +28,20 @@ public class Card {
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Rarity_ENUM getRarity() {
+        return rarity;
+    }
+
+    public String getSet() {
+        return set;
+    }
 }
