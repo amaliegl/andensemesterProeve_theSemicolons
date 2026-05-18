@@ -9,10 +9,10 @@ public class Event {
     private String name;
     private User creator;
     private EventType_ENUM type;
-    //TODO - format her
+    private String format;
     private int maxPlayers;
     private LocalDate date;
     private LocalTime time;
-    //TODO - status ENUM her (skal spørge Holger først)
+    private Event_status eventStatus;
     private List<User> participants;
 }
