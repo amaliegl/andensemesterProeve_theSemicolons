@@ -19,23 +19,28 @@
     <main>
         <div class="link-group">
             <div class="container" th:onclick="|window.location.href='@{/myDecks}'|">
-                <h3>Mine deck </h3>
+                <h3 class="link-heading">Mine deck </h3>
+                <img class="link-img" th:src="@{image/deckStack.png}" alt="Illustration til mine deck">
             </div>
 
             <div class="container" th:onclick="|window.location.href='@{/myEvents}'|">
                 <h3>Mine events</h3>
+                <img th:src="@{image/mineEvents.png}" alt="Illustration til mine events">
             </div>
 
             <div class="container" th:onclick="|window.location.href='@{/allEvents}'|">
                 <h3>Find events</h3>
+                <img class="link-img" th:src="@{image/deckStack.png}" alt="Illustration til find event">
             </div>
 
             <div class="container" th:onclick="|window.location.href='@{/myProfile}'|">
                 <h3>Min profil</h3>
+                <img th:src="@{image/profile.png}" alt="Illustration til min profil">
             </div>
 
             <div class="container" th:onclick="|window.location.href='@{/myCards}'|">
                 <h3>Min kortsamling</h3>
+                <img th:src="@{image/deck.png}" alt="Illustration til min kortsamling">
             </div>
 
             <div class="container" th:if="${sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Admin}" th:onclick="|window.location.href='@{/admin}'|">
