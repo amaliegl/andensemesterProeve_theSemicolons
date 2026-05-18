@@ -14,9 +14,9 @@
 <div class="wrapper">
     <header>
         <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
     </header>
     <main>
-            <h2>Forside</h2>
         <div class="link-group">
             <div class="container" th:onclick="|window.location.href='@{/myDecks}'|">
                 <h3>Mine deck </h3>
