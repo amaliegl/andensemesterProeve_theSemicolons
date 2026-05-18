@@ -25,23 +25,15 @@ public class Card {
         this.visible = visible;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id;}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name;}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public CardType_ENUM getType() {return type;}
 
-    public Rarity_ENUM getRarity() {
-        return rarity;
-    }
+    public String getSet() {return set;}
 
-    public String getSet() {
-        return set;
-    }
+    public Rarity_ENUM getRarity() { return rarity;}
+
+    public String getImageUrl() { return imageUrl;}
 }
