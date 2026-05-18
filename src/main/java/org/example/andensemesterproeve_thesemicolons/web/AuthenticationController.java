@@ -32,6 +32,7 @@ public class AuthenticationController {
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
+            System.out.println("Brugers kort: " + loggedIn.getCards());
             return "redirect:/homePage";
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
