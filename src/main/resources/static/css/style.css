@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 :root {
     --purple-brand-color: #43243d;
+    --purple-brand-color-92Opacity: rgba(67, 36, 61, 0.92);
     --LigtPurple-brand-color: #7e5f9b;
     --orange-brand-color: #ff4a02;
     --darkGray-brand-color: #242424;
@@ -68,12 +69,11 @@ main{
 
     .home-page .link-group .container {
         width: 400px;
-        background-color: var(--purple-brand-color);
+        background-color: var(--purple-brand-color-92Opacity);
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         margin: 20px;
-        opacity: 92%;
         display: flex;
         justify-content: space-between;
         align-content: center;
@@ -159,6 +159,7 @@ button{
     color: var(--text-color);
     border-radius: 8px;
     padding: 3px;
+    cursor: pointer;
 
 }
 
@@ -191,12 +192,11 @@ button{
 
 .link-group .container {
     width: 275px;
-    background-color: var(--purple-brand-color);
+    background-color: var(--purple-brand-color-92Opacity);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     margin: 20px;
-    opacity: 92%;
 }
 
 .link-group .container img {
@@ -210,9 +210,8 @@ button{
     padding: 20px;
     width: 75vw;
     text-align: center;
-    background-color: var(--purple-brand-color);
+    background-color: var(--purple-brand-color-92Opacity);
     border-radius: 20px;
-    opacity: 92%;
 }
 
 .home-page .container{
@@ -251,12 +250,11 @@ button{
 
 .card {
     width: min(300px, 44%); /* Var originalt width: 275px; */
-    background-color: var(--purple-brand-color);
+    background-color: var(--purple-brand-color-92Opacity);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     margin: min(20px, 1%); /* Var originalt margin: 20px; */
-    opacity: 92%;
 }
 
 .card img {
@@ -286,6 +284,61 @@ button{
     text-decoration: none;
     border-radius: 4px;
     margin-top: 16px;
+}
+
+.event-container{
+    color: var(--text-color);
+    width: 92%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.event-container .card{
+    width: 100%;
+
+}
+
+.event-card-content{
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 15px;
+    width: 100%;
+}
+
+.event-details-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;         /* Sørger for at de pakker pænt på mindre skærme/mobil */
+    gap: 20px;               /* Mellemrum mellem kolonnerne */
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 130px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}
+
+.event-card-content .changePageButton{
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 10px 25px;
 }
 
 /* Footer definitions */
