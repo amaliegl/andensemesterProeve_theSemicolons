@@ -116,4 +116,39 @@ public class UserRepositoryMySql implements IUserRepository {
         jdbcTemplate.update(sql,
                 user.getUsername(), user.getPassword(), user.getEmail());
     }
+
+    @Override
+    public List<User> findAllUsers() {
+        String sql = "SELECT username, title FROM users ORDER BY username ASC";
+        //Intentionally selecting specific columns to avoid fetching passwords
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new User(
+                        rs.getString("username"),
+                        Title_ENUM.valueOf(rs.getString("title"))
+                )
+        );
+    }
+
+    @Override
+    public List<Title_ENUM> findAllUniqueTitles() {
+        String sql = "SELECT DISTINCT title FROM users ORDER BY title ASC";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                Title_ENUM.valueOf(rs.getString("title"))
+        );
+    }
+
+    @Override
+    public List<User> findAllUsersByTitle(Title_ENUM title) {
+        String sql = "SELECT username, title FROM users WHERE title = ? ORDER BY username ASC";
+        //Intentionally selecting specific columns to avoid fetching passwords
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new User(
+                        rs.getString("username"),
+                        Title_ENUM.valueOf(rs.getString("title"))
+                ), title.name()
+        );
+    }
 }

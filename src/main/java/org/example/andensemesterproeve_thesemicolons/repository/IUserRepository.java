@@ -1,8 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.repository;
 
-import org.example.andensemesterproeve_thesemicolons.domain.Card;
-import org.example.andensemesterproeve_thesemicolons.domain.Deck;
-import org.example.andensemesterproeve_thesemicolons.domain.User;
+import org.example.andensemesterproeve_thesemicolons.domain.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
@@ -21,4 +19,10 @@ public interface IUserRepository {
     List<Integer> findCardIdsForDeck(Deck deck);
 
     void createStandardUser(User user);
+
+    List<User> findAllUsers();
+
+    List<Title_ENUM> findAllUniqueTitles();
+
+    List<User> findAllUsersByTitle(Title_ENUM title);
 }

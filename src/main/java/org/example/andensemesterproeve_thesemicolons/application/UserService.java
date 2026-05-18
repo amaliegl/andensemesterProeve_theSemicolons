@@ -1,5 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
+import org.example.andensemesterproeve_thesemicolons.domain.Card;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
@@ -8,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,28 @@ public class UserService {
         userRepository.createStandardUser(user);
         return true;
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAllUsers();
+    }
+
+    public List<Title_ENUM> getAllTitles() {
+        return userRepository.findAllUniqueTitles();
+    }
+
+    public List<User> filterUsersByTitle(String title) {
+        if (Title_ENUM.Spiller.name().equals(title)) {
+            return userRepository.findAllUsersByTitle(Title_ENUM.Spiller);
+        }
+        if (Title_ENUM.Arrangoer.name().equals(title)) {
+            return userRepository.findAllUsersByTitle(Title_ENUM.Arrangoer);
+        }
+        if (Title_ENUM.Admin.name().equals(title)) {
+            return userRepository.findAllUsersByTitle(Title_ENUM.Admin);
+        }
+        return new ArrayList<>();
+    }
+
 
     private void fillUserDecksWithTheirCards(User user) {
         for (int i = 0; i < user.getDecks().size(); i++) {

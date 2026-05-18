@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
+<body class="background-image auth-background home-page">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="link-group">
+            <div class="container" th:onclick="|window.location.href='@{/admin/allUsers}'|">
+                <h3 class="link-heading">Alle brugere</h3>
+            </div>
+        </div>
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
 </body>
+
 </html>

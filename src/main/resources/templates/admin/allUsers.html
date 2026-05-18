@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alle brugere</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Alle brugere</h2>
+        </div>
+
+        <form method="get" action="/admin/allUsers">
+            <label for="selectedTitleSort">Sortér på type:
+                <select name="selectedTitleSort" id="selectedTitleSort" onchange="this.form.submit()" class="inputBox">
+                    <option value="Intet filter"
+                            th:selected="${selectedTitleSort == null || selectedTitleSort == 'Intet filter'}">
+                        Intet filter
+                    </option>
+                    <option th:each="title : ${titles}"
+                            th:value="${title}"
+                            th:text="${title}"
+                            th:selected="${#strings.equals(selectedTitleSort, title.toString())}">
+                    </option>
+
+                </select>
+            </label>
+        </form>
+
+        <table class="container">
+            <thead>
+            <tr>
+                <th>Brugernavn</th>
+                <th>Rolle</th>
+                <th>Andet</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${allUsers}">
+                <td>
+                    <p th:text="${user.username}"></p>
+                </td>
+                <td>
+                    <p th:text="${user.title}"></p>
+                </td>
+                <td>
+                    <a th:href="@{/admin/allUsers/{username}(username=${user.username})}">Rediger</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>

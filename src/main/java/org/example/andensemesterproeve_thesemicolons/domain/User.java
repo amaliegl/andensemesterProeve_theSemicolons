@@ -22,10 +22,10 @@ public class User {
         this.title = title;
     }
 
-    /*public User(int id, String username) {
-        this.id = id;
+    public User(String username, Title_ENUM title) {
         this.username = username;
-    }*/
+        this.title = title;
+    }
 
     public int getId() {
         return id;
