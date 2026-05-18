@@ -69,7 +69,7 @@ public class UserRepositoryMySql implements IUserRepository {
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Card(
-                        rs.getInt("cards.id"),
+                        rs.getInt("user_owned_cards.id"),
                         rs.getString("name"),
                         CardType_ENUM.valueOf(rs.getString("type")),
                         rs.getString("set_abbreviation"),
