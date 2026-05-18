@@ -7,7 +7,7 @@
     <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Mine kort</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="background-image auth-background">
@@ -19,8 +19,20 @@
     <main>
         <div class="container">
             <h2>Mine kort</h2>
-
         </div>
+
+        <section class="card-container">
+            <div class="card" th:each="card : ${cards}">
+                <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
+                <div class="card-content">
+                    <h3 th:text="${card.name}"></h3>
+                    <p th:text="${card.set}"></p>
+                    <p th:text="${card.rarity}"></p>
+                    <a href="" class="btn">Se detaljer</a>
+                </div>
+            </div>
+        </section>
+
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>
