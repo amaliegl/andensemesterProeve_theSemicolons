@@ -46,3 +46,26 @@ CREATE TABLE deck_cards (
                             CONSTRAINT fk_deck_cards_deck_id FOREIGN KEY (deck_id) REFERENCES decks(id),
                             CONSTRAINT fk_deck_cards_user_owned_card_id FOREIGN KEY (user_owned_card_id) REFERENCES user_owned_cards(id)
 );
+
+CREATE TABLE events (
+                        id INT auto_increment PRIMARY KEY,
+                        creator_id  INT NOT NULL,
+                        event_type ENUM ('Turnering', 'Casual'),
+                        format VARCHAR(50),
+                        max_players INT NOT NULL,
+                        event_date DATE NOT NULL,
+                        event_time TIME NOT NULL,
+                        event_status ENUM ('Aaben_for_tilmelding', 'Fuldt_booket', 'Lukket_for_tilmelding', 'Afholdt'),
+                        CONSTRAINT fk_creator_id FOREIGN KEY (creator_id) REFERENCES users(id)
+
+);
+
+CREATE TABLE event_users(
+                            event_id INT NOT NULL,
+                            user_id INT NOT NULL,
+                            leaderboard_placing INT,
+
+                            PRIMARY KEY (event_id, user_id),
+                            CONSTRAINT fk_event FOREIGN KEY (event_id) REFERENCES events(id),
+                            CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
