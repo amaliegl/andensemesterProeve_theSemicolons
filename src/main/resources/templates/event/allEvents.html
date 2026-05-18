@@ -25,15 +25,43 @@
 
             <section class="event-container">
                 <div class="card" th:each="event : ${events}">
-                    <div class="card-content">
+                    <div class="event-card-content">
                         <h3 th:text="${event.name}">Type</h3>
-                        <p th:text="${event.type}">Type</p>
-                        <p th:text="${event.format}">Format</p>
-                        <p th:text="${event.maxPlayers}">Max antal spillere</p>
-                        <p th:text="${event.date}">Dato</p>
-                        <p th:text="${event.time}">Tid</p>
-                        <p th:text="${event.eventStatus}">Event Status</p>
-                        <a href="" class="changePageButton">Tilmeld</a>
+
+                        <div class="event-details-row">
+
+                            <div class="info-item">
+                                 <label>Type:</label>
+                                 <p th:text="${event.type}">Type</p>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Format:</label>
+                                 <p th:text="${event.format}">Format</p>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Max antal Spillere:</label>
+                                <p th:text="${event.maxPlayers}">Max antal spillere</p>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Dato:</label>
+                                <p th:text="${event.date}">Dato</p>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Tidspunkt:</label>
+                                <p th:text="${event.time}">Tid</p>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Event status:</label>
+                                <p th:text="${event.eventStatus}">Event Status</p>
+                            </div>
+                            <br>
+                        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myEvents}'|">Tilmeld</button>
+                        </div>
                     </div>
                 </div>
             </section>
