@@ -21,9 +21,10 @@
     <main>
         <div class="container">
             <h2>Alle events</h2>
+        </div>
 
-            <section class="card-container">
-                <div class="event" th:each="event : ${events}">
+            <section class="event-container">
+                <div class="card" th:each="event : ${events}">
                     <div class="card-content">
                         <h3 th:text="${event.name}">Type</h3>
                         <p th:text="${event.type}">Type</p>
@@ -37,7 +38,6 @@
                 </div>
             </section>
 
-        </div>
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>
