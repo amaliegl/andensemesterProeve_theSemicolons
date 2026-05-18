@@ -64,8 +64,34 @@ main{
         width: 100%;
         gap: 10px;
         margin: 10px 0;
-
     }
+
+    .home-page .link-group .container {
+        width: 400px;
+        background-color: var(--purple-brand-color);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        margin: 20px;
+        opacity: 92%;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+    }
+    .home-page .link-group .container img {
+        width: 50%;
+        height: auto;
+        margin: 0% 0% 0 0%;
+    }
+
+    /*
+    <div class="link-group">
+            <div class="container" th:onclick="|window.location.href='@{/myDecks}'|">
+                <h3 class="link-heading">Mine deck </h3>
+                <img class="link-img" th:src="@{image/deckStack.png}" alt="Illustration af et kortdeck">
+            </div>
+    */
+
 
     .home-page .container{
         width: 90vw;
@@ -158,13 +184,28 @@ button{
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
-    margin: 20px 0;
-    width: 95%;
+    margin: 25px 0;
+    /*width: 95%;*/
     box-sizing: border-box;
-
 }
 
-.container{
+.link-group .container {
+    width: 275px;
+    background-color: var(--purple-brand-color);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 20px;
+    opacity: 92%;
+}
+
+.link-group .container img {
+    width: 90%;
+    height: auto;
+    margin: 15% 5% 0 5%;
+}
+
+.container {
     margin: 20px auto;
     padding: 20px;
     width: 75vw;
@@ -172,16 +213,16 @@ button{
     background-color: var(--purple-brand-color);
     border-radius: 20px;
     opacity: 92%;
-
 }
 
 .home-page .container{
-    width: 30%;
+    width: 20%;
     min-width: 250px;
-    margin: 0;
-    flex-grow: 1; /* gør at kaserne må fylde hele rækken i flex grid*/
-
+    margin: 17px;
+    /*flex-grow: 1;*/ /* gør at kaserne må fylde hele rækken i flex grid*/
 }
+
+
 
 .home-page .container:hover{
     cursor: pointer;
@@ -209,12 +250,12 @@ button{
 }
 
 .card {
-    width: 275px;
+    width: min(300px, 44%); /* Var originalt width: 275px; */
     background-color: var(--purple-brand-color);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    margin: 20px;
+    margin: min(20px, 1%); /* Var originalt margin: 20px; */
     opacity: 92%;
 }
 
