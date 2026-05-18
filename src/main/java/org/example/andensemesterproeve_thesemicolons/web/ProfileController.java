@@ -19,4 +19,10 @@ public class ProfileController {
         return "/profile/myProfile";
     }
 
+    @GetMapping("/logout")
+    public String logoutUser(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+    }
+
 }

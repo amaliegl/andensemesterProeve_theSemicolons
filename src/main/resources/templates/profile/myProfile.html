@@ -21,6 +21,8 @@
             <span th:text="|Username: ${user.username}|">Username</span>
             <br><br>
             <span th:text="|Email: ${user.email}|">Email</span>
+            <br> <br>
+            <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/logout}'|">Log ud</button>
 
         </div>
     </main>
