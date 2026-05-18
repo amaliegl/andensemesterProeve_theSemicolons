@@ -50,6 +50,7 @@ CREATE TABLE deck_cards (
 CREATE TABLE events (
                         id INT auto_increment PRIMARY KEY,
                         creator_id  INT NOT NULL,
+                        name VARCHAR(100),
                         event_type ENUM ('Turnering', 'Casual'),
                         format VARCHAR(50),
                         max_players INT NOT NULL,
@@ -64,7 +65,6 @@ CREATE TABLE event_users(
                             event_id INT NOT NULL,
                             user_id INT NOT NULL,
                             leaderboard_placing INT,
-
                             PRIMARY KEY (event_id, user_id),
                             CONSTRAINT fk_event FOREIGN KEY (event_id) REFERENCES events(id),
                             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
