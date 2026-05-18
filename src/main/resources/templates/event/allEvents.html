@@ -16,12 +16,26 @@
 <body class="background-image auth-background">
 <div class="wrapper">
     <header>
-        <!-- header indhold -->
         <div th:insert="~{parts/navigation:: nav}"></div>
     </header>
     <main>
         <div class="container">
             <h2>Alle events</h2>
+
+            <section class="card-container">
+                <div class="event" th:each="event : ${events}">
+                    <div class="card-content">
+                        <h3 th:text="${event.name}">Type</h3>
+                        <p th:text="${event.type}">Type</p>
+                        <p th:text="${event.format}">Format</p>
+                        <p th:text="${event.maxPlayers}">Max antal spillere</p>
+                        <p th:text="${event.date}">Dato</p>
+                        <p th:text="${event.time}">Tid</p>
+                        <p th:text="${event.eventStatus}">Event Status</p>
+                        <a href="" class="changePageButton">Tilmeld</a>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </main>
