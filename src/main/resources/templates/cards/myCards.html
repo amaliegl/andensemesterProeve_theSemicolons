@@ -24,49 +24,29 @@
         <form method="get" action="/myCards">
         <label for="selectedSetSort">Sortér på sæt:
             <select name="selectedSetSort" id="selectedSetSort" onchange="this.form.submit()" class="inputBox">
-                <option th:selected="${selectedSetSort}">Intet filter</option>
+                <option value="Intet filter"
+                        th:selected="${selectedSetSort == null || selectedSetSort == 'Intet filter'}">
+                    Intet filter
+                </option>
                 <option th:each="set : ${sets}" th:value="${set}" th:text="${set}" th:selected="${selectedSetSort == set}"></option>
-                <!-- th:onclick="@{/myCards/set/{set}(set=${set})} !-->
             </select>
         </label>
 
-        <label>Sortér på type:
-            <select class="inputBox">
-                <option>Intet filter</option>
-                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+        <label for="selectedTypeSort">Sortér på type:
+            <select name="selectedTypeSort" id="selectedTypeSort" onchange="this.form.submit()" class="inputBox">
+                <option value="Intet filter"
+                        th:selected="${selectedTypeSort == null || selectedTypeSort == 'Intet filter'}">
+                    Intet filter
+                </option>
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type}"
+                        th:selected="${#strings.equals(selectedTypeSort, type.toString())}">
+                </option>
             </select>
         </label>
-
-
-        <section class="card-container">
-            <div class="card" th:each="card : ${cards}">
-                <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
-                <div class="card-content">
-                    <h3 th:text="${card.name}"></h3>
-                    <p th:text="${card.set}"></p>
-                    <p th:text="${card.rarity}"></p>
-                    <a href="" class="btn">Se detaljer</a>
-                </div>
-            </div>
-        </section>
         </form>
 
-       <!--
-        <label>Sortér på sæt:
-            <select class="inputBox">
-                <option>Intet filter</option>
-                <option th:each="set : ${sets}" th:value="${set}" th:text="${set}" th:selected="${selectedSetSort == set}"></option>
-                th:onclick="@{/myCards/set/{set}(set=${set})}
-            </select>
-        </label>
-
-        <label>Sortér på type:
-            <select class="inputBox">
-                <option>Intet filter</option>
-                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
-            </select>
-        </label>
-
 
         <section class="card-container">
             <div class="card" th:each="card : ${cards}">
@@ -79,7 +59,6 @@
                 </div>
             </div>
         </section>
-        !-->
 
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
