@@ -151,4 +151,33 @@ public class UserRepositoryMySql implements IUserRepository {
                 ), title.name()
         );
     }
+
+    @Override
+    public void adminEditUser(User user) {
+        String sql = """
+                UPDATE users SET
+                    title = ?
+                WHERE username = ?
+                """;
+
+        jdbcTemplate.update(sql, user.getTitle().name(), user.getUsername());
+    }
+
+    @Override
+    public Optional<User> adminFindUserByUsername(String username) {
+        String sql = "SELECT username, title FROM users WHERE username = ?";
+
+        List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                new User(
+                        rs.getString("username"),
+                        Title_ENUM.valueOf(rs.getString("title"))
+                ), username
+        );
+
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(results.getFirst());
+    }
 }

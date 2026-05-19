@@ -7,10 +7,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,5 +47,30 @@ public class AdminController {
         return "redirect:/homePage";
     }
 
-    
+    @GetMapping("/allUsers/editUser/{username}")
+    public String getEditUserPage(@PathVariable String username,
+                                  HttpSession session, Model model){
+        User sessionUser = (User) session.getAttribute("currentUser");
+
+        if (sessionUser.getTitle() == Title_ENUM.Admin) {
+            User user = userService.adminFindUserByUsername(sessionUser, username);
+            if (user == null) {
+                return "redirect:/admin/allUsers";
+            }
+            model.addAttribute("userToEdit", user);
+            return "admin/editUser";
+        }
+        return "redirect:/homePage";
+    }
+
+    @PostMapping("/allUsers/editUser")
+    public String submitEditUserForm(@ModelAttribute User userToEdit, HttpSession session){
+        User sessionUser = (User) session.getAttribute("currentUser");
+
+        if (sessionUser.getTitle() == Title_ENUM.Admin) {
+            userService.adminEditUser(sessionUser, userToEdit);
+            return "redirect:/admin/allUsers";
+        }
+        return "redirect:/homePage";
+    }
 }
