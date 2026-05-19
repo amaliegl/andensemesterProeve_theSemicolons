@@ -25,6 +25,17 @@ public class Card {
         this.visible = visible;
     }
 
+    public Card(int id, String name, CardType_ENUM type, String set, Rarity_ENUM rarity,
+                String imageUrl, String referenceUrl) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.set = set;
+        this.rarity = rarity;
+        this.imageUrl = imageUrl;
+        this.referenceUrl = referenceUrl;
+    }
+
     public int getId() { return id;}
 
     public String getName() { return name;}

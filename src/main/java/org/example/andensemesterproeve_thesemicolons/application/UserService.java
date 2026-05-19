@@ -1,12 +1,10 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
-import org.example.andensemesterproeve_thesemicolons.domain.Card;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.exceptions.InsufficientRightsException;
 import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -99,6 +97,20 @@ public class UserService {
         } else {
             throw new InsufficientRightsException("User " + admin + " attempting to access adminFindUserByUsername() without Admin rights");
         }
+    }
+
+    public User refreshSessionUser(User sessionUser) {
+        System.out.println("Session user antal kort før refresh: " + sessionUser.getCards().size());
+        Optional<User> user = userRepository.findByUsername(sessionUser.getUsername());
+
+        if (user.isEmpty()) {
+            return null;
+        }
+        User foundUser = user.get();
+        fillUserDecksWithTheirCards(foundUser);
+
+        System.out.println("Session user antal kort efter refresh: " + foundUser.getCards().size());
+        return foundUser;
     }
 
     private void fillUserDecksWithTheirCards(User user) {

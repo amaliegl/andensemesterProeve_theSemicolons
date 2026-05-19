@@ -47,6 +47,7 @@
         </label>
         </form>
 
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myCards/addCard}'|">Tilføj kort</button>
 
         <section class="card-container">
             <div class="card" th:each="card : ${cards}">

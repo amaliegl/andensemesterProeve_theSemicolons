@@ -69,3 +69,9 @@ CREATE TABLE event_users(
                             CONSTRAINT fk_event FOREIGN KEY (event_id) REFERENCES events(id),
                             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+ALTER TABLE user_owned_cards
+    ALTER COLUMN for_swapping SET DEFAULT false;
+
+ALTER TABLE user_owned_cards
+    ALTER COLUMN card_visible SET DEFAULT false;

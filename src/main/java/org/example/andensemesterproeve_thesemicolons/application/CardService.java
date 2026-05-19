@@ -57,4 +57,26 @@ public class CardService {
         }
         return filteredCards;
     }
+
+    public void addCardToUsersCollection(int cardId, User sessionUser) {
+        if (cardRepository.checkIfCardIdExists(cardId)) {
+            cardRepository.addCardToUserCollection(cardId, sessionUser);
+        }
+    }
+
+    public List<Card> getAllCards() {
+        return cardRepository.findAllCards();
+    }
+
+    public List<Card> getAllCardsBySet(String set) {
+        return cardRepository.findAllCardsBySet(set);
+    }
+
+    public List<Card> getAllCardsByType(String type) {
+        return cardRepository.findAllCardsByType(type);
+    }
+
+    public List<Card> getAllCardsBySetAndType(String set, String type) {
+        return cardRepository.findAllCardsBySetAndType(set, type);
+    }
 }

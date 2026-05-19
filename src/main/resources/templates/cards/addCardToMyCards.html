@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilføj kort</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Tilføj kort til kortsamling</h2>
+        </div>
+
+        <form method="get" action="/myCards/addCard">
+            <label for="selectedSetSort">Sortér på sæt:
+                <select name="selectedSetSort" id="selectedSetSort" onchange="this.form.submit()" class="inputBox">
+                    <option value="Intet filter"
+                            th:selected="${selectedSetSort == null || selectedSetSort == 'Intet filter'}">
+                        Intet filter
+                    </option>
+                    <option th:each="set : ${sets}" th:value="${set}" th:text="${set}" th:selected="${selectedSetSort == set}"></option>
+                </select>
+            </label>
+
+            <label for="selectedTypeSort">Sortér på type:
+                <select name="selectedTypeSort" id="selectedTypeSort" onchange="this.form.submit()" class="inputBox">
+                    <option value="Intet filter"
+                            th:selected="${selectedTypeSort == null || selectedTypeSort == 'Intet filter'}">
+                        Intet filter
+                    </option>
+                    <option th:each="type : ${types}"
+                            th:value="${type}"
+                            th:text="${type}"
+                            th:selected="${#strings.equals(selectedTypeSort, type.toString())}">
+                    </option>
+                </select>
+            </label>
+        </form>
+
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myCards}'|">Tilbage til kortsamling</button>
+
+        <section class="card-container">
+            <div class="card" th:each="card : ${allCards}">
+                <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
+                <div class="card-content">
+                    <h3 th:text="${card.name}"></h3>
+                    <p th:text="${card.set}"></p>
+                    <p th:text="${card.rarity}"></p>
+                    <form th:action="@{/myCards/addCard/{cardId}(cardId=${card.id})}" method="post">
+
+                        <!-- Bevar aktive filtre, så ikke alle kort genindlæses, når kort tilføjes til samling -->
+                        <input type="hidden" name="selectedSetSort" th:value="${selectedSetSort}">
+                        <input type="hidden" name="selectedTypeSort" th:value="${selectedTypeSort}">
+
+                        <button type="submit" class="submitButton">Tilføj til min samling</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>
