@@ -1,3 +1,4 @@
+
 function termsAndConditionsClick() {
     alert("PRIVATLIVSPOLITIK\n" +
         "\n" +
@@ -28,3 +29,16 @@ function validateTermsAndConditionsCheckbox(event) {
     document.getElementById('errorMsg').textContent = "Du skal acceptere privatlivspolitikken, før du kan registrere dig"
     return false;
 }
+
+// Logik til Burgermenuen (Vågner automatisk når skærmen er lille og der klikkes på den)
+document.addEventListener("DOMContentLoaded", function () {
+    const burgerToggle = document.getElementById("burgerToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    // Vi tjekker om elementerne findes på den aktuelle side, før vi lytter efter klik
+    if (burgerToggle && navLinks) {
+        burgerToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("open");
+        });
+    }
+});
