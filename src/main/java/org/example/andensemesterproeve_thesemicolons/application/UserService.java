@@ -4,6 +4,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.Card;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
+import org.example.andensemesterproeve_thesemicolons.exceptions.InsufficientRightsException;
 import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -78,18 +79,26 @@ public class UserService {
         return new ArrayList<>();
     }
 
-    public void adminEditUser(User user) {
-        userRepository.adminEditUser(user);
+    public void adminEditUser(User admin, User userToEdit) {
+        if (admin.getTitle() == Title_ENUM.Admin) {
+            userRepository.adminEditUser(userToEdit);
+        } else {
+            throw new InsufficientRightsException("User " + admin + " attempting to access adminEditUser() without Admin rights");
+        }
     }
 
-    public User adminFindUserByUsername(String username) {
-        Optional<User> usernameUser = userRepository.adminFindUserByUsername(username);
+    public User adminFindUserByUsername(User admin, String username) {
+        if (admin.getTitle() == Title_ENUM.Admin) {
+            Optional<User> usernameUser = userRepository.adminFindUserByUsername(username);
 
-        if (usernameUser.isEmpty()) {
-            return null;
+            if (usernameUser.isEmpty()) {
+                return null;
+            }
+
+            return usernameUser.get();
+        } else {
+            throw new InsufficientRightsException("User " + admin + " attempting to access adminFindUserByUsername() without Admin rights");
         }
-
-        return usernameUser.get();
     }
 
     private void fillUserDecksWithTheirCards(User user) {

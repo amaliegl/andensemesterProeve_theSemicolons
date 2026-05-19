@@ -53,7 +53,7 @@ public class AdminController {
         User sessionUser = (User) session.getAttribute("currentUser");
 
         if (sessionUser.getTitle() == Title_ENUM.Admin) {
-            User user = userService.adminFindUserByUsername(username);
+            User user = userService.adminFindUserByUsername(sessionUser, username);
             if (user == null) {
                 return "redirect:/admin/allUsers";
             }
@@ -65,10 +65,12 @@ public class AdminController {
 
     @PostMapping("/allUsers/editUser")
     public String submitEditUserForm(@ModelAttribute User userToEdit, HttpSession session){
-        System.out.println("Er inde i PostMapping for editUser");
-        System.out.println("Username: " + userToEdit.getUsername());
-        System.out.println("User-title: " + userToEdit.getTitle());
-        userService.adminEditUser(userToEdit);
-        return "redirect:/admin/allUsers";
+        User sessionUser = (User) session.getAttribute("currentUser");
+
+        if (sessionUser.getTitle() == Title_ENUM.Admin) {
+            userService.adminEditUser(sessionUser, userToEdit);
+            return "redirect:/admin/allUsers";
+        }
+        return "redirect:/homePage";
     }
 }
