@@ -25,8 +25,10 @@ public class EventController {
             return "redirect:/login";
         }
         model.addAttribute("sessionUser", user);
+        List<Event> myArrangedEvents = eventService.getAllMyArrangedEvents(user.getId());
         List<Event> mySignedUpEvents = eventService.getALLmySignedUpEvents(user.getId());
         model.addAttribute("mySignedUpEvents", mySignedUpEvents);
+        model.addAttribute("myArrangedEvents", myArrangedEvents);
         return "/event/myEvents";
     }
 

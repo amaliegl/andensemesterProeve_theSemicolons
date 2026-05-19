@@ -27,6 +27,50 @@
             <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/addEvent}'|">Opret event</button>
         </div>
 
+        <section class="event-container arranged-events">
+            <div class="card" th:each="event : ${myArrangedEvents}">
+                <div class="event-card-content">
+                    <h3 th:text="${event.name}">Type</h3>
+
+                    <div class="event-details-row">
+
+                        <div class="info-item">
+                            <label>Type:</label>
+                            <p th:text="${event.type}">Type</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Format:</label>
+                            <p th:text="${event.format}">Format</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Max antal Spillere:</label>
+                            <p th:text="${event.maxPlayers}">Max antal spillere</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Dato:</label>
+                            <p th:text="${event.date}">Dato</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Tidspunkt:</label>
+                            <p th:text="${event.time}">Tid</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Event status:</label>
+                            <p th:text="${event.eventStatus}">Event Status</p>
+                        </div>
+                        <br>
+                        <button class="submitButton" type="button" th:onclick="|window.location.href='{/editEvent/myEvents/{id}(id=${event.id})}'|">Redigér</button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="event-container">
             <div class="card" th:each="event : ${mySignedUpEvents}">
                 <div class="event-card-content">

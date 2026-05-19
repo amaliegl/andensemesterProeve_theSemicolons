@@ -5,6 +5,7 @@
     --purple-brand-color-92Opacity: rgba(67, 36, 61, 0.92);
     --LigtPurple-brand-color: #7e5f9b;
     --darkPurple-brand-color: rgba(45, 24, 41);
+    --green-brand-color-92Opacity: rgba(51, 62, 33, 0.92);
     --orange-brand-color: #ff4a02;
     --darkGray-brand-color: #242424;
     --lightGray-brand-color: #c8c8c8;
@@ -280,6 +281,11 @@ button{
     align-items: stretch;
     box-sizing: border-box;
     justify-content: center;
+}
+
+.event-container.arranged-events .card{
+    background-color: var(--green-brand-color-92Opacity);
+
 }
 
 .event-container .card{

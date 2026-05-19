@@ -61,6 +61,26 @@ public class EventRepository implements IEventRepository {
     }
 
     @Override
+    public List<Event> FindAllMyArrangedEvents(int userId) {
+        String sql = """
+                SELECT * FROM events
+                WHERE creator_id = ?
+                """;
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Event(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        EventType_ENUM.valueOf(rs.getString("event_type")),
+                        rs.getString("format"),
+                        rs.getInt("max_players"),
+                        rs.getDate("event_date").toLocalDate(),
+                        rs.getTime("event_time").toLocalTime(),
+                        EventStatus_ENUM.valueOf(rs.getString("event_status"))
+                ) ,userId
+        );
+    }
+
+    @Override
     public List<Event> findALLmySignedUpEvents(int userId) {
         String sql = """
                 SELECT events.* FROM events

@@ -12,6 +12,8 @@ public interface IEventRepository {
 
     Boolean UserIsAlreadySignedUp(int userId, int eventId);
 
+    List<Event> FindAllMyArrangedEvents(int userId);
+
     List<Event> findALLmySignedUpEvents(int userId);
 
     void cancelRegistrationToEvent(int userId, int eventId);
