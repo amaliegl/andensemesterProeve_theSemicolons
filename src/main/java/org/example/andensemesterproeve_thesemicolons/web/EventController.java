@@ -24,6 +24,7 @@ public class EventController {
         if (user == null){
             return "redirect:/login";
         }
+        model.addAttribute("sessionUser", user);
         List<Event> mySignedUpEvents = eventService.getALLmySignedUpEvents(user.getId());
         model.addAttribute("mySignedUpEvents", mySignedUpEvents);
         return "/event/myEvents";
@@ -54,7 +55,12 @@ public class EventController {
         int userId = user.getId();
         eventService.cancelRegistrationForEvent(userId, eventId);
         return "redirect:/myEvents";
+    }
 
+    @GetMapping("/addEvent")
+    public String addEvent(Model model, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
 
+        return "/event/addEvent";
     }
 }

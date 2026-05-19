@@ -52,6 +52,15 @@ public class EventRepository implements IEventRepository {
     }
 
     @Override
+    public Boolean UserIsAlreadySignedUp(int userId, int eventId) {
+        String sql= """
+                SELECT COUNT(*) FROM event_users WHERE event_id= ? AND user_id= ?
+                """;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId, userId); //vi bruger Integer fremfor int, fordi vi kan få returneret null
+        return count != null && count>0;
+    }
+
+    @Override
     public List<Event> findALLmySignedUpEvents(int userId) {
         String sql = """
                 SELECT events.* FROM events

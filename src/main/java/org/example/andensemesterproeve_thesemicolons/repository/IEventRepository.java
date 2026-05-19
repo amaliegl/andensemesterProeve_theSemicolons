@@ -10,6 +10,8 @@ public interface IEventRepository {
 
     void signUserUpForEvent(int userId, int eventId);
 
+    Boolean UserIsAlreadySignedUp(int userId, int eventId);
+
     List<Event> findALLmySignedUpEvents(int userId);
 
     void cancelRegistrationToEvent(int userId, int eventId);

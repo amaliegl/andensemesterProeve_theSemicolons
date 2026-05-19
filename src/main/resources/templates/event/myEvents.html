@@ -23,6 +23,10 @@
             <h2>Alle events</h2>
         </div>
 
+        <div th:if="${sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Admin or sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Arrangoer}">
+            <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/addEvent}'|">Opret event</button>
+        </div>
+
         <section class="event-container">
             <div class="card" th:each="event : ${mySignedUpEvents}">
                 <div class="event-card-content">
