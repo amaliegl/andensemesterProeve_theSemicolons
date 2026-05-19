@@ -78,6 +78,19 @@ public class UserService {
         return new ArrayList<>();
     }
 
+    public void adminEditUser(User user) {
+        userRepository.adminEditUser(user);
+    }
+
+    public User adminFindUserByUsername(String username) {
+        Optional<User> usernameUser = userRepository.adminFindUserByUsername(username);
+
+        if (usernameUser.isEmpty()) {
+            return null;
+        }
+
+        return usernameUser.get();
+    }
 
     private void fillUserDecksWithTheirCards(User user) {
         for (int i = 0; i < user.getDecks().size(); i++) {

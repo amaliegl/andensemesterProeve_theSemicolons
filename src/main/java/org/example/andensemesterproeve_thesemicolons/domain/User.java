@@ -79,6 +79,8 @@ public class User {
         return title;
     }
 
+    public void setTitle(Title_ENUM title) { this.title = title; }
+
     public void validateValues() {
         if (username == null || username.isEmpty() || username.trim().isEmpty() ||
                 username.contains("slettet") || username.contains("deleted") ||

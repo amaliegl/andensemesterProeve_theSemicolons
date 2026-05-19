@@ -55,7 +55,7 @@
                     <p th:text="${user.title}"></p>
                 </td>
                 <td>
-                    <a th:href="@{/admin/allUsers/{username}(username=${user.username})}">Rediger</a>
+                    <a th:href="@{/admin/allUsers/editUser/{username}(username=${user.username})}">Rediger</a>
                 </td>
             </tr>
             </tbody>

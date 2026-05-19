@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redigér bruger</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Redigér bruger</h2>
+        </div>
+
+        <form th:action="@{/admin/allUsers/editUser}" method="post" th:object="${userToEdit}">
+            <p></p><span th:text="|Redigér bruger ${userToEdit.username}|">Navn</span></p>
+            <input type="hidden" th:field="*{username}">
+
+            <div>
+                <label class="inputLabel">Rolle:
+                <select th:field="*{title}" class="inputBox">
+                    <option th:each="title : ${T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).values()}"
+                            th:value="${title.name()}"
+                            th:text="${title}">
+                    </option>
+                </select>
+                </label>
+            </div>
+            <button type="submit">Gem ændringer</button>
+        </form>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>

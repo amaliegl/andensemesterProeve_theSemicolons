@@ -25,4 +25,8 @@ public interface IUserRepository {
     List<Title_ENUM> findAllUniqueTitles();
 
     List<User> findAllUsersByTitle(Title_ENUM title);
+
+    void adminEditUser(User user);
+
+    Optional<User> adminFindUserByUsername(String username);
 }
