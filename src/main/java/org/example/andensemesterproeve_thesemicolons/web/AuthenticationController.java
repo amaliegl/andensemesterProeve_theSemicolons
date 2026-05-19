@@ -32,7 +32,6 @@ public class AuthenticationController {
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
-            System.out.println("Brugers kort: " + loggedIn.getCards());
             return "redirect:/homePage";
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
@@ -52,7 +51,6 @@ public class AuthenticationController {
             //bruger oprettet
             return "authentication/login";
         } else {
-            //TODO - hvis der ændres i exceptions til verificering, så kom tilbage hertil
             model.addAttribute("error", "Ugyldig værdi i brugernavn, email eller password");
             return "authentication/register";
         }
