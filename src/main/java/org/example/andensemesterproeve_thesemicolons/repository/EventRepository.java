@@ -72,4 +72,13 @@ public class EventRepository implements IEventRepository {
             ) ,userId
         );
     }
+
+    @Override
+    public void cancelRegistrationToEvent(int userId, int eventId) {
+        String sql = """
+                DELETE FROM event_users WHERE user_id=? AND event_id=?
+                """;
+
+        jdbcTemplate.update(sql, userId, eventId);
+    }
 }

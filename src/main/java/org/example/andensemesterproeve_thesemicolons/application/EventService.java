@@ -25,4 +25,8 @@ public class EventService {
     }
 
     public List<Event> getALLmySignedUpEvents(int userId){return eventRepository.findALLmySignedUpEvents(userId);}
+
+    public void cancelRegistrationForEvent(int userId, int eventId){
+        eventRepository.cancelRegistrationToEvent(userId, eventId);
+    }
 }

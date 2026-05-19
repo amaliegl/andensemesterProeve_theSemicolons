@@ -47,4 +47,14 @@ public class EventController {
         eventService.signUpForEvent(userId, eventId);
         return "redirect:/myEvents";
     }
+
+    @GetMapping("/cancelRegistration/myEvents/{eventId}")
+    public String cancelRegistrationToEvent(@PathVariable("eventId") int eventId, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
+        int userId = user.getId();
+        eventService.cancelRegistrationForEvent(userId, eventId);
+        return "redirect:/myEvents";
+
+
+    }
 }
