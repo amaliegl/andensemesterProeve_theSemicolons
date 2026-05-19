@@ -9,4 +9,6 @@ public interface IEventRepository {
     List<Event> findAllEvents();
 
     void signUserUpForEvent(int userId, int eventId);
+
+    List<Event> findALLmySignedUpEvents(int userId);
 }

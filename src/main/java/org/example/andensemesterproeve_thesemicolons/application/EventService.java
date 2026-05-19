@@ -23,4 +23,6 @@ public class EventService {
     public void signUpForEvent(int userId, int eventId){
         eventRepository.signUserUpForEvent(userId, eventId);
     }
+
+    public List<Event> getALLmySignedUpEvents(int userId){return eventRepository.findALLmySignedUpEvents(userId);}
 }

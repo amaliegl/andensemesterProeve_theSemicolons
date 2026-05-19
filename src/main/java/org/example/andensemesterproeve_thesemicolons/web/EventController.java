@@ -19,7 +19,13 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/myEvents")
-    public String getMyEvents(){
+    public String getMyEvents(Model model, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null){
+            return "redirect:/login";
+        }
+        List<Event> mySignedUpEvents = eventService.getALLmySignedUpEvents(user.getId());
+        model.addAttribute("mySignedUpEvents", mySignedUpEvents);
         return "/event/myEvents";
     }
 

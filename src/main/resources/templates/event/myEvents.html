@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Deckforge hjemmeside">
@@ -13,14 +16,56 @@
 <body class="background-image auth-background">
 <div class="wrapper">
     <header>
-        <!-- header indhold -->
         <div th:insert="~{parts/navigation:: nav}"></div>
     </header>
     <main>
         <div class="container">
-            <h2>Mine events</h2>
-
+            <h2>Alle events</h2>
         </div>
+
+        <section class="event-container">
+            <div class="card" th:each="event : ${mySignedUpEvents}">
+                <div class="event-card-content">
+                    <h3 th:text="${event.name}">Type</h3>
+
+                    <div class="event-details-row">
+
+                        <div class="info-item">
+                            <label>Type:</label>
+                            <p th:text="${event.type}">Type</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Format:</label>
+                            <p th:text="${event.format}">Format</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Max antal Spillere:</label>
+                            <p th:text="${event.maxPlayers}">Max antal spillere</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Dato:</label>
+                            <p th:text="${event.date}">Dato</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Tidspunkt:</label>
+                            <p th:text="${event.time}">Tid</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Event status:</label>
+                            <p th:text="${event.eventStatus}">Event Status</p>
+                        </div>
+                        <br>
+                        <button class="submitButton" type="button" th:onclick="|window.location.href='@{/signUp/myEvents/{id}(id=${event.id})}'|">Afmeld</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>
