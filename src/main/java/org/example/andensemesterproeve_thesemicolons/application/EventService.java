@@ -1,6 +1,7 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
+import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,9 @@ public class EventService {
 
     public List<Event> getAllEvents(){
         return eventRepository.findAllEvents();
+    }
+
+    public void signUpForEvent(int userId, int eventId){
+        eventRepository.signUserUpForEvent(userId, eventId);
     }
 }

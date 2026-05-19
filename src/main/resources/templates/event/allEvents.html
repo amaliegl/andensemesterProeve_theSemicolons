@@ -60,7 +60,7 @@
                                 <p th:text="${event.eventStatus}">Event Status</p>
                             </div>
                             <br>
-                        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myEvents}'|">Tilmeld</button>
+                        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/signUp/myEvents/{id}(id=${event.id})}'|">Tilmeld</button>
                         </div>
                     </div>
                 </div>

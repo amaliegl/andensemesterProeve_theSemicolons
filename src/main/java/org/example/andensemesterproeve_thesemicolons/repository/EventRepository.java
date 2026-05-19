@@ -41,4 +41,13 @@ public class EventRepository implements IEventRepository {
             );
         });
     }
+
+    @Override
+    public void signUserUpForEvent(int userId, int eventId) {
+        String sql = """
+                INSERT INTO event_users (event_id, user_id) VALUES(?,?)
+                """;
+
+        jdbcTemplate.update(sql, eventId, userId);
+    }
 }
