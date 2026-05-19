@@ -4,6 +4,7 @@
     --purple-brand-color: #43243d;
     --purple-brand-color-92Opacity: rgba(67, 36, 61, 0.92);
     --LigtPurple-brand-color: #7e5f9b;
+    --darkPurple-brand-color: rgba(45, 24, 41);
     --orange-brand-color: #ff4a02;
     --darkGray-brand-color: #242424;
     --lightGray-brand-color: #c8c8c8;
@@ -55,45 +56,21 @@ main {
     padding: 0;
 }
 
-/* Responsive definitioner */
-/* Media queries og grids her */
-@media (max-width: 600px){
-    .link-group {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        gap: 10px;
-        margin: 10px 0;
-    }
-
-    .home-page .link-group .container {
-        width: 400px;
-        background-color: var(--purple-brand-color-92Opacity);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        margin: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-content: center;
-    }
-    .home-page .link-group .container img {
-        width: 50%;
-        height: auto;
-        margin: 0% 0% 0 0%;
-    }
-
-    .home-page .container{
-        width: 90vw;
-        margin: 5px 0;
-        min-width: unset;
-    }
-
-    .container{
-        width: 90vW;
-        margin: 10px auto;
-    }
+.burger-menu{
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
 }
+
+.burger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+}
+
+
 
 /* Header definitions */
 header {
@@ -113,14 +90,27 @@ header {
  }
 
 .topnav{
+    display: flex;
+    justify-content: space-between; /* Skubber burger-ikon til den ene side og links til den anden */
+    align-items: center;
+    padding: 10px 24px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    min-height: 50px;
  }
 
 .topnav a {
-    float: left;
     text-align: center;
     padding: 14px 16px;
     font-size: 17px;
     text-decoration: none;
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 /* Main definitions */
@@ -329,6 +319,86 @@ button{
     margin-top: auto;
     align-self: flex-start;
     padding: 10px 25px;
+}
+
+/* Responsive definitioner */
+/* Media queries og grids her */
+@media (max-width: 900px){
+    .burger-menu {
+        display: flex;
+        margin-left: auto;
+    }
+
+
+    .nav-links {
+        display: none; /* Skjult som standard */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%; /* Starter præcis hvor .topnav slutter */
+        left: 0;
+        background-color: var(--darkPurple-brand-color);
+        padding: 20px;
+        box-sizing: border-box;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        z-index: 9999; /* Sørger for at den ligger allerøverst */
+        gap: 10px;
+    }
+
+    /* Klassen der tændes med JavaScript, når menuen skal foldes ud */
+    .nav-links.open {
+        display: flex;
+    }
+
+    .topnav a {
+        width: 100%;
+        padding: 14px;
+        box-sizing: border-box;
+        text-align: center;
+
+    }
+
+    .link-group {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .container, .home-page .container{
+        width: 90vW;
+        margin: 10px;
+        min-width: unset;
+    }
+
+    .home-page .link-group .container {
+        width: min(90vw, 400px);
+        background-color: var(--purple-brand-color-92Opacity);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        margin: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+    }
+    .home-page .link-group .container img {
+        width: 50%;
+        height: auto;
+        margin: 0% 0% 0 0%;
+    }
+
+    .home-page .container{
+        width: 90vw;
+        margin: 5px 0;
+        min-width: unset;
+    }
+
+    .container{
+        width: 90vW;
+        margin: 10px auto;
+    }
 }
 
 /* Footer definitions */

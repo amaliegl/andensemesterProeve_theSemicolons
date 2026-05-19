@@ -1,4 +1,36 @@
 <div class="topnav" th:fragment="nav">
+    <span class="nav-brand">DeckForge</span>
+    <script type="text/javascript" src="script.js" defer></script>
+
+    <div class="burger-menu" id="burgerToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+    <a th:href="@{/homePage}"
+       th:classappend="${currentUri == '/homePage' ? 'active' : ''}">Forside</a>
+
+    <a th:href="@{/myDecks}"
+       th:classappend="${currentUri == '/myDecks' ? 'active' : ''}">Mine decks</a>
+
+    <a th:href="@{/myEvents}"
+       th:classappend="${currentUri == '/myEvents' ? 'active' : ''}">Mine Events</a>
+
+    <a th:href="@{/allEvents}"
+       th:classappend="${currentUri == '/allEvents' ? 'active' : ''}">Find events</a>
+
+    <a th:href="@{/myCards}"
+       th:classappend="${currentUri == '/myCards' ? 'active' : ''}">Min kortsamling</a>
+
+    <a th:href="@{/myProfile}"
+       th:classappend="${currentUri == '/myProfile' ? 'active' : ''}">Min Profil</a>
+    </div>
+</div>
+
+<!--
+<div class="topnav" th:fragment="nav">
     <a th:href="@{/homePage}"
        th:classappend="${currentUri == '/homePage' ? 'active' : ''}">Forside</a>
 
@@ -18,17 +50,4 @@
        th:classappend="${currentUri == '/myProfile' ? 'active' : ''}">Min Profil</a>
 </div>
 
-<!--
-
-
-
-
-<div class="topnav" th:fragment="nav">
-    <a class="active" th:href="@{/homePage}">Forside</a>
-    <a href="/myDecks">Mine decks</a>
-    <a href="/myEvents">Mine Events</a>
-    <a href="/allEvents">Find events</a>
-    <a href="/myCards">Min kortsamling</a>
-    <a href="/myProfile">Min Profil</a>
-</div>
  -->
