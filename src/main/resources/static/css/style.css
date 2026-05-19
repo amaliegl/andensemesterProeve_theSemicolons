@@ -33,10 +33,9 @@ body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-
 }
 
-main{
+main {
     width: 100%;
     padding: 0;
     margin: 0;
@@ -46,7 +45,7 @@ main{
 }
 
 
-.wrapper{
+.wrapper {
     min-height: 100dvh;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -84,15 +83,6 @@ main{
         margin: 0% 0% 0 0%;
     }
 
-    /*
-    <div class="link-group">
-            <div class="container" th:onclick="|window.location.href='@{/myDecks}'|">
-                <h3 class="link-heading">Mine deck </h3>
-                <img class="link-img" th:src="@{image/deckStack.png}" alt="Illustration af et kortdeck">
-            </div>
-    */
-
-
     .home-page .container{
         width: 90vw;
         margin: 5px 0;
@@ -108,9 +98,10 @@ main{
 /* Header definitions */
 header {
     background-color: var(--purple-brand-color);
-
 }
 
+
+/* Top-navigation definitions */
  .topnav a:hover{
     cursor: pointer;
     background-color: var(--LigtPurple-brand-color);
@@ -155,12 +146,12 @@ main {
     background-image: url(../../../../../uploads/cute2.jpg);
 }
 
+/* Button definitions */
 button{
     color: var(--text-color);
     border-radius: 8px;
     padding: 3px;
     cursor: pointer;
-
 }
 
 .submitButton{
@@ -179,6 +170,7 @@ button{
     margin-top: 15px
 }
 
+/* Primarily home page definitions */
 .link-group{
     display: flex;
     flex-direction: row;
@@ -221,14 +213,13 @@ button{
     /*flex-grow: 1;*/ /* gør at kaserne må fylde hele rækken i flex grid*/
 }
 
-
-
 .home-page .container:hover{
     cursor: pointer;
     transform: scale(1.02);
     background-color: var(--LigtPurple-brand-color);
 }
 
+/* Input field definitions */
 .inputBox{
     background-color: var(--darkGray-brand-color);
     color: var(--text-color);
@@ -240,7 +231,7 @@ button{
     color : var(--lightGray-brand-color)
 }
 
-
+/* Primarily myCards-page definitions */
 .card-container {
     display: flex;
     justify-content: center;
@@ -286,6 +277,7 @@ button{
     margin-top: 16px;
 }
 
+/* Event page definitions */
 .event-container{
     color: var(--text-color);
     width: 92%;
@@ -302,7 +294,6 @@ button{
 
 .event-container .card{
     width: 100%;
-
 }
 
 .event-card-content{
@@ -332,10 +323,9 @@ button{
     min-width: 130px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-
 }
 
-.event-card-content .changePageButton{
+.event-card-content .changePageButton {
     margin-top: auto;
     align-self: flex-start;
     padding: 10px 25px;
