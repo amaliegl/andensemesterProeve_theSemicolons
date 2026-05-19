@@ -60,7 +60,7 @@
                             <p th:text="${event.eventStatus}">Event Status</p>
                         </div>
                         <br>
-                        <button class="submitButton" type="button" th:onclick="|window.location.href='@{/cancelRegistration/myEvents/{id}(id=${event.id})}'|">Afmeld</button>
+                        <button class="submitButton" type="button" th:onclick="|if(window.confirm('Er du sikker på du vil afmelde dig eventet?')) { window.location.href='__@{/cancelRegistration/myEvents/{id}(id=${event.id})}__' }|">Afmeld</button>
 
                     </div>
                 </div>
