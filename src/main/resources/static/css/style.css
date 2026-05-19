@@ -7,6 +7,7 @@
     --darkPurple-brand-color: rgba(45, 24, 41);
     --green-brand-color-92Opacity: rgba(51, 62, 33, 0.92);
     --orange-brand-color: #ff4a02;
+    --light-orange-brand-color: #dc9273;
     --darkGray-brand-color: #242424;
     --lightGray-brand-color: #c8c8c8;
     --text-color: white;
@@ -149,6 +150,10 @@ button{
     background-color: var(--orange-brand-color);
 }
 
+.submitButtonSecondary {
+    background-color: var(--light-orange-brand-color);
+}
+
 .changePageButton{
     background-color: var(--LigtPurple-brand-color);
 }
@@ -285,7 +290,6 @@ button{
 
 .event-container.arranged-events .card{
     background-color: var(--green-brand-color-92Opacity);
-
 }
 
 .event-container .card{
@@ -309,7 +313,6 @@ button{
     width: 100%;
     margin-bottom: 10px;
     box-sizing: border-box;
-
 }
 
 .info-item {
@@ -361,7 +364,6 @@ button{
         padding: 14px;
         box-sizing: border-box;
         text-align: center;
-
     }
 
     .link-group {
