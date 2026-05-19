@@ -55,6 +55,7 @@
                 <div class="card-content">
                     <h3 th:text="${card.name}"></h3>
                     <p th:text="${card.set}"></p>
+                    <p th:text="${card.type}"></p>
                     <p th:text="${card.rarity}"></p>
                     <form th:action="@{/myCards/addCard/{cardId}(cardId=${card.id})}" method="post">
 

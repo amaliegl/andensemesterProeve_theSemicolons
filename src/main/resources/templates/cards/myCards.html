@@ -18,7 +18,8 @@
     </header>
     <main>
         <div class="container">
-            <h2>Mine kort</h2>
+            <h2>Min kortsamling</h2>
+            <h2><span th:text="|${#lists.size(cards)} kort|">Antal kort</span></h2>
         </div>
 
         <form method="get" action="/myCards">
@@ -55,6 +56,7 @@
                 <div class="card-content">
                     <h3 th:text="${card.name}"></h3>
                     <p th:text="${card.set}"></p>
+                    <p th:text="${card.type}"></p>
                     <p th:text="${card.rarity}"></p>
                     <a href="" class="btn">Se detaljer</a>
                 </div>
