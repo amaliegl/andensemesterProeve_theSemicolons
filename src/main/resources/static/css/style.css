@@ -4,6 +4,7 @@
     --purple-brand-color: #43243d;
     --purple-brand-color-92Opacity: rgba(67, 36, 61, 0.92);
     --LigtPurple-brand-color: #7e5f9b;
+    --darkPurple-brand-color: rgba(45, 24, 41);
     --orange-brand-color: #ff4a02;
     --darkGray-brand-color: #242424;
     --lightGray-brand-color: #c8c8c8;
@@ -323,9 +324,6 @@ button{
 /* Responsive definitioner */
 /* Media queries og grids her */
 @media (max-width: 900px){
-
-    /*TODO chat */
-
     .burger-menu {
         display: flex;
         margin-left: auto;
@@ -339,7 +337,7 @@ button{
         position: absolute;
         top: 100%; /* Starter præcis hvor .topnav slutter */
         left: 0;
-        background-color: rgba(45, 24, 41, 0.98); /* En anelse mørkere lilla for god kontrast TODO skal rettes til brand color*/
+        background-color: var(--darkPurple-brand-color);
         padding: 20px;
         box-sizing: border-box;
         box-shadow: 0 4px 10px rgba(0,0,0,0.4);
@@ -359,8 +357,6 @@ button{
         text-align: center;
 
     }
-
-    /*TODO chat */
 
     .link-group {
         flex-direction: column;
