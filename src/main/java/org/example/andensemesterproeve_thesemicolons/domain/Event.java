@@ -28,6 +28,17 @@ public class Event {
         this.eventStatus = eventStatus;
     }
 
+    public Event(int id, String name, EventType_ENUM type, String format, int maxPlayers, LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.format = format;
+        this.maxPlayers = maxPlayers;
+        this.date = date;
+        this.time = time;
+        this.eventStatus = eventStatus;
+    }
+
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
 

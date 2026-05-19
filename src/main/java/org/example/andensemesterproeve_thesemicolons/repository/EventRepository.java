@@ -50,4 +50,35 @@ public class EventRepository implements IEventRepository {
 
         jdbcTemplate.update(sql, eventId, userId);
     }
+
+    @Override
+    public List<Event> findALLmySignedUpEvents(int userId) {
+        String sql = """
+                SELECT events.* FROM events
+                                INNER JOIN event_users ON events.id = event_users.event_id
+                                WHERE event_users.user_id = ?
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Event(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    EventType_ENUM.valueOf(rs.getString("event_type")),
+                    rs.getString("format"),
+                    rs.getInt("max_players"),
+                    rs.getDate("event_date").toLocalDate(),
+                    rs.getTime("event_time").toLocalTime(),
+                    EventStatus_ENUM.valueOf(rs.getString("event_status"))
+            ) ,userId
+        );
+    }
+
+    @Override
+    public void cancelRegistrationToEvent(int userId, int eventId) {
+        String sql = """
+                DELETE FROM event_users WHERE user_id=? AND event_id=?
+                """;
+
+        jdbcTemplate.update(sql, userId, eventId);
+    }
 }
