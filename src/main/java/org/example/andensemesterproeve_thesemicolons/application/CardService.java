@@ -79,4 +79,8 @@ public class CardService {
     public List<Card> getAllCardsBySetAndType(String set, String type) {
         return cardRepository.findAllCardsBySetAndType(set, type);
     }
+
+    public List<Card> getAllUserCardsBySearchParam(User user, String searchParam) {
+        return cardRepository.findUserCardsByNameSearch(user, searchParam);
+    }
 }

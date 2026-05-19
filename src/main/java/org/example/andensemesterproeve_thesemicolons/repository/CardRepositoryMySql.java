@@ -123,6 +123,30 @@ public class CardRepositoryMySql implements ICardRepository {
         );
     }
 
+    @Override
+    public List<Card> findUserCardsByNameSearch(User user, String searchParam) {
+        String sql = """
+                SELECT * FROM user_owned_cards
+                JOIN cards ON cards.id = user_owned_cards.card_id
+                WHERE user_id = ?
+                AND cards.name LIKE ?
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Card(
+                        rs.getInt("user_owned_cards.id"),
+                        rs.getString("name"),
+                        CardType_ENUM.valueOf(rs.getString("type")),
+                        rs.getString("set_abbreviation"),
+                        Rarity_ENUM.valueOf(rs.getString("rarity")),
+                        rs.getString("image_url"),
+                        rs.getString("reference_url"),
+                        rs.getBoolean("for_swapping"),
+                        rs.getBoolean("card_visible")
+                ), user.getId(), "%"+searchParam+"%"
+        );
+    }
+
     /*
     try {
             String sql = "SELECT DISTINCT type FROM cards ORDER BY type ASC";

@@ -23,4 +23,6 @@ public interface ICardRepository {
     List<Card> findAllCardsByType(String type);
 
     List<Card> findAllCardsBySetAndType(String set, String type);
+
+    List<Card> findUserCardsByNameSearch(User user, String searchParam);
 }

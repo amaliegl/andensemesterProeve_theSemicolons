@@ -61,6 +61,17 @@ public class CardController {
         return "/cards/myCards";
     }
 
+    @GetMapping("/myCards/search")
+    public String getUserCardsFromSearch(@RequestParam String searchKeyword, HttpSession session, Model model) {
+        User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("cards", cardService.getAllUserCardsBySearchParam(sessionUser, searchKeyword));
+        model.addAttribute("searchKeyword", searchKeyword);
+        return "/cards/myCards";
+    }
+
     @GetMapping("/myCards/addCard")
     public String getAllCards(@RequestParam(required = false) String selectedSetSort,
                               @RequestParam(required = false) String selectedTypeSort,

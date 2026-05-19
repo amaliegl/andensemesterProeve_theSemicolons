@@ -8,7 +8,7 @@
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mine kort</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="background-image auth-background">
 <div class="wrapper">
@@ -46,6 +46,12 @@
                 </option>
             </select>
         </label>
+        </form>
+
+        <form th:action="@{/myCards/search}" method="get">
+            <input type="text" name="searchKeyword" class="inputBox" placeholder="Søg efter kortnavn">
+            <button type="submit" class="submitButton">Søg</button>
+            <button class="submitButtonSecondary" type="button" th:onclick="|window.location.href='@{/myCards}'|">Nulstil søgning</button>
         </form>
 
         <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myCards/addCard}'|">Tilføj kort</button>
