@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kortinformation</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Kortinformation</h2>
+        </div>
+
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myCards}'|">Tillbage til samling</button>
+
+        <section class="card-details-container">
+            <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
+            <div class="card-details-info">
+                <div class="card-general-info">
+                    <h3 th:text="|Navn: ${card.name}|"></h3>
+                    <p th:text="|Sæt: ${card.set}|"></p>
+                    <p th:text="|Type: ${card.type}|"></p>
+                    <p th:text="|Sjældenhed: ${card.rarity}|"></p>
+                    <a th:href="${card.referenceUrl}" th:target="_blank" class="btn">Officielt opslag</a>
+                </div>
+                <form th:action="@{/myCards/details}" method="post" th:object="${card}" class="card-specific-info">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="swap" th:field="*{forSwapping}">
+                            Ønskes byttet
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="visible" th:field="*{visible}">
+                            Synligt for andre
+                        </label>
+                    </div>
+                    <button type="submit" class="submitButton">Gem ændringer</button>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>

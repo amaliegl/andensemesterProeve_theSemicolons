@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CardService {
@@ -82,5 +83,14 @@ public class CardService {
 
     public List<Card> getAllUserCardsBySearchParam(User user, String searchParam) {
         return cardRepository.findUserCardsByNameSearch(user, searchParam);
+    }
+
+    public Card getCardByOwnedCardId(int ownedCardId) {
+        Optional<Card> card = cardRepository.findUserCardByOwnedCardId(ownedCardId);
+        return card.orElse(null);
+    }
+
+    public void updateUserOwnedCard(Card card) {
+        cardRepository.updateUserOwnedCard(card);
     }
 }

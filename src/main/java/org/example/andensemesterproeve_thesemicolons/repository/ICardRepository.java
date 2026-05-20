@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.CardType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICardRepository {
 
@@ -25,4 +26,8 @@ public interface ICardRepository {
     List<Card> findAllCardsBySetAndType(String set, String type);
 
     List<Card> findUserCardsByNameSearch(User user, String searchParam);
+
+    Optional<Card> findUserCardByOwnedCardId(int ownedCardId);
+
+    void updateUserOwnedCard(Card card);
 }
