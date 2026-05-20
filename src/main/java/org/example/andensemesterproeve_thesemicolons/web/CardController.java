@@ -102,7 +102,7 @@ public class CardController {
         return "redirect:/myCards";
     }
 
-    @GetMapping("/myCards/addCard")
+    @GetMapping("/addCard")
     public String getAllCards(@RequestParam(required = false) String selectedSetSort,
                               @RequestParam(required = false) String selectedTypeSort,
                               HttpSession session, Model model) {
@@ -142,7 +142,7 @@ public class CardController {
     }
 
 
-    @PostMapping("/myCards/addCard/{cardId}")
+    @PostMapping("/addCard/{cardId}")
     public String addCardToUserCollection(@PathVariable int cardId,
                                           @RequestParam(required = false) String selectedSetSort,
                                           @RequestParam(required = false) String selectedTypeSort,
