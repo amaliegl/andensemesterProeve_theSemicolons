@@ -24,7 +24,7 @@
     /*outline: 1px solid red !important; !!!!! til evt test, for at se grænsen på elementer*/
 }
 
-h1,h2,h3{
+h1,h2,h3, .h2-span{
     font-family: var(--headingFont-brand-font), serif;
     font-weight: 100;
 }
@@ -74,13 +74,13 @@ main {
 
 
 
-/* Header definitions */
+/* ----- Header definitions ----- */
 header {
     background-color: var(--purple-brand-color);
 }
 
 
-/* Top-navigation definitions */
+/* ----- Top-navigation definitions ----- */
  .topnav a:hover{
     cursor: pointer;
     background-color: var(--LigtPurple-brand-color);
@@ -115,7 +115,7 @@ header {
     gap: 10px;
 }
 
-/* Main definitions */
+/* ----- Main definitions ----- */
 main {
     width: 100%;
     display: flex;
@@ -138,7 +138,7 @@ main {
     background-image: url(../../../../../uploads/cute2.jpg);
 }
 
-/* Button definitions */
+/* ----- Button definitions ----- */
 button{
     color: var(--text-color);
     border-radius: 8px;
@@ -166,7 +166,17 @@ button{
     margin-top: 15px
 }
 
-/* Primarily home page definitions */
+/* Bruges til ikke-button elementer for at få knap-udseende */
+.card-content .btn, .container .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--orange-brand-color);
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+/* ----- Primarily home page definitions ----- */
 .link-group{
     display: flex;
     flex-direction: row;
@@ -215,7 +225,7 @@ button{
     background-color: var(--LigtPurple-brand-color);
 }
 
-/* Input field definitions */
+/* ----- Input field definitions ----- */
 .inputBox{
     background-color: var(--darkGray-brand-color);
     color: var(--text-color);
@@ -227,8 +237,9 @@ button{
     color : var(--lightGray-brand-color)
 }
 
-/* Primarily myCards-page definitions */
+/* ----- Primarily myCards-page definitions ----- */
 .card-container {
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -264,16 +275,8 @@ button{
     font-size: 15px;
     line-height: 1.3;
 }
-.card-content .btn {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: var(--orange-brand-color);
-    text-decoration: none;
-    border-radius: 4px;
-    margin-top: 16px;
-}
 
-/* Card details definitions */
+/* ----- Card details definitions ----- */
 .card-details-container {
     margin: 20px auto;
     padding: 20px;
@@ -336,7 +339,7 @@ button{
 
 }
 
-/* Event page definitions */
+/* ----- Event page definitions ----- */
 .event-container{
     color: var(--text-color);
     width: 92%;
@@ -393,8 +396,7 @@ button{
     padding: 10px 25px;
 }
 
-/* Responsive definitioner */
-/* Media queries og grids her */
+/* ----- Responsive definitioner (media queries / grids) ----- */
 @media (max-width: 900px){
     .burger-menu {
         display: flex;
@@ -484,7 +486,7 @@ button{
     }
 }
 
-/* Footer definitions */
+/* ----- Footer definitions ----- */
 footer {
     text-align: center;
     background-color: var(--purple-brand-color);
