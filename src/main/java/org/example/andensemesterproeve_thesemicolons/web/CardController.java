@@ -80,7 +80,7 @@ public class CardController {
             return "redirect:/login";
         }
 
-        Card card = cardService.getCardByOwnedCardId(id);
+        Card card = cardService.getCardByUserOwnedCardId(id, sessionUser);
 
         if (card == null) {
             return "redirect:/myCards";

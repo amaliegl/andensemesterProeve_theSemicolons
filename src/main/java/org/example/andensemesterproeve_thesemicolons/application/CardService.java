@@ -85,9 +85,15 @@ public class CardService {
         return cardRepository.findUserCardsByNameSearch(user, searchParam);
     }
 
-    public Card getCardByOwnedCardId(int ownedCardId) {
-        Optional<Card> card = cardRepository.findUserCardByOwnedCardId(ownedCardId);
-        return card.orElse(null);
+    public Card getCardByUserOwnedCardId(int ownedCardId, User owner) {
+        //Make sure only the owner of the cards can edit the card details of their own card
+        for (int i = 0; i < owner.getCards().size(); i++) {
+            if (ownedCardId == owner.getCards().get(i).getId()) {
+                Optional<Card> card = cardRepository.findUserCardByOwnedCardId(ownedCardId);
+                return card.orElse(null);
+            }
+        }
+        return null;
     }
 
     public void updateUserOwnedCard(Card card) {
