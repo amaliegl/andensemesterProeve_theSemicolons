@@ -1,6 +1,7 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
+import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
 import org.springframework.stereotype.Service;
@@ -12,25 +13,45 @@ public class EventService {
 
     private final IEventRepository eventRepository;
 
-    public EventService(IEventRepository eventRepository){
+    public EventService(IEventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getAllEvents(){
+    public List<Event> getAllEvents() {
         return eventRepository.findAllEvents();
     }
 
-    public void signUpForEvent(int userId, int eventId){
-        if (!eventRepository.UserIsAlreadySignedUp(userId, eventId)){
+    public void signUpForEvent(int userId, int eventId) {
+        if (!eventRepository.UserIsAlreadySignedUp(userId, eventId)) {
             eventRepository.signUserUpForEvent(userId, eventId);
+        }
+        Event event = eventRepository.getEventById(eventId);
+        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
+        if (currentNumberOfParticipants >= event.getMaxPlayers()) {
+            eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
         }
     }
 
-    public List<Event> getAllMyArrangedEvents(int userId){return eventRepository.FindAllMyArrangedEvents(userId);}
+    public List<Event> getAllMyArrangedEvents(int userId) {
+        return eventRepository.FindAllMyArrangedEvents(userId);
+    }
 
-    public List<Event> getALLmySignedUpEvents(int userId){return eventRepository.findALLmySignedUpEvents(userId);}
+    public List<Event> getALLmySignedUpEvents(int userId) {
+        return eventRepository.findALLmySignedUpEvents(userId);
+    }
 
-    public void cancelRegistrationForEvent(int userId, int eventId){
+    public void cancelRegistrationForEvent(int userId, int eventId) {
         eventRepository.cancelRegistrationToEvent(userId, eventId);
+
+        Event event = eventRepository.getEventById(eventId);
+        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
+        if (currentNumberOfParticipants <= event.getMaxPlayers()) {
+            eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Aaben_for_tilmelding.name());
+        }
+
+    }
+
+    public void createNewEvent(Event event) {
+        eventRepository.createEvent(event);
     }
 }

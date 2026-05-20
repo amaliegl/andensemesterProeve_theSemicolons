@@ -16,6 +16,8 @@ public class Event {
     private EventStatus_ENUM eventStatus;
     private List<User> participants;
 
+    public Event(){}
+
     public Event(int id, String name, User creator, EventType_ENUM type, String format, int maxPlayers, LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
         this.id = id;
         this.name = name;

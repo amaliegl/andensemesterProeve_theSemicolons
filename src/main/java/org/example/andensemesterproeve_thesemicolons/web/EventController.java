@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -62,7 +64,18 @@ public class EventController {
     @GetMapping("/addEvent")
     public String addEvent(Model model, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
-
+        if (user == null){
+            return "redirect:/login";
+        }
+        model.addAttribute("event", new Event());
         return "/event/addEvent";
+    }
+
+    @PostMapping("/addEvent")
+    public String createEvent (@ModelAttribute Event event, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
+        event.setCreator(user);
+        eventService.createNewEvent(event);
+        return "redirect:/myEvents";
     }
 }
