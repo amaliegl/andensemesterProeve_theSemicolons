@@ -19,6 +19,10 @@ public interface IEventRepository {
 
     void updateEventStatus(int eventId, String newStatus);
 
+    void updateStatusForConcludedEvents();
+
+    void updateStatusForOngoingEvents();
+
     List<Event> FindAllMyArrangedEvents(int userId);
 
     List<Event> findALLmySignedUpEvents(int userId);

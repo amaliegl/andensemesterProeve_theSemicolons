@@ -173,4 +173,30 @@ public class EventRepository implements IEventRepository {
         jdbcTemplate.update(sql, newStatus, eventId);
 
     }
+
+    @Override
+    public void updateStatusForConcludedEvents() {
+        String sql = """
+                UPDATE events
+                SET event_status = 'Afholdt'
+                WHERE event_date < CURDATE()
+                AND event_status != 'Afholdt'
+                """;
+
+        jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public void updateStatusForOngoingEvents() {
+        String sql = """
+                UPDATE events
+                SET event_status = 'Lukket_for_tilmelding'
+                WHERE event_date <= DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+                AND event_status != 'Lukket_for_tilmelding'
+                AND event_status != 'Afholdt'
+                """;
+
+        jdbcTemplate.update(sql);
+
+    }
 }
