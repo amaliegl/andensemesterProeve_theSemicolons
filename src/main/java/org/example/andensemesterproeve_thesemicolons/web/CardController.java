@@ -36,6 +36,7 @@ public class CardController {
         model.addAttribute("types", cardService.getAllTypes());
         model.addAttribute("selectedSetSort", selectedSetSort);
         model.addAttribute("selectedTypeSort", selectedTypeSort);
+        model.addAttribute("user", sessionUser);
 
         if (selectedSetSort != null && selectedTypeSort != null) {
             if (selectedSetSort.equals("Intet filter") && selectedTypeSort.equals("Intet filter")) {
@@ -69,6 +70,7 @@ public class CardController {
         }
         model.addAttribute("cards", cardService.getAllUserCardsBySearchParam(sessionUser, searchKeyword));
         model.addAttribute("searchKeyword", searchKeyword);
+        model.addAttribute("user", sessionUser);
         return "/cards/myCards";
     }
 
