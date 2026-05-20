@@ -1,5 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
@@ -12,10 +13,23 @@ public class Deck {
         this.id = id;
         this.name = name;
         this.format = format;
+        this.cards = new ArrayList<>();
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public void addCard(Card card) {

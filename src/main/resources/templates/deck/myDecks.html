@@ -7,7 +7,7 @@
     <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Mine deck</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="background-image auth-background">
@@ -19,8 +19,23 @@
     <main>
         <div class="container">
             <h2>Mine deck</h2>
-
         </div>
+
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks/addDeck}'|">Nyt deck</button>
+
+        <section class="card-container">
+            <div class="card" th:each="deck : ${decks}">
+                <div class="card-content">
+                    <h3 th:text="${deck.name}"></h3>
+                    <p><span th:text="|${#lists.size(deck.cards)} kort|">Antal kort</span></p>
+                    <p th:text="${deck.format} ?: 'Intet format'"></p>
+                    <p><span th:if="${deck.format == null}">Intet Format</span></p>
+                    <p><span th:unless="${deck.format == null}" th:text="|${deck.format} format|">Format</span></p>
+                    <a th:href="@{/myDecks/details/{id}(id=${deck.id})}" class="btn">Åben deck</a>
+                </div>
+            </div>
+        </section>
+
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deckinformation</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2 th:text="${deck.name}">Mit deck</h2>
+            <h2><span th:text="|${#lists.size(deck.cards)} kort i decket|">Antal kort</span></h2>
+            <p><span th:if="${deck.format == null}">Intet Format</span></p>
+            <p><span th:unless="${deck.format == null}" th:text="|${deck.format} format|">Format</span></p>
+            <a class="btn" th:href="@{/myDeck/editDeck/{id}(id=${deck.id})}">Redigér deck</a>
+        </div>
+
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks/details/{id}/addCard(id=${deck.id})}'|">
+            Tilføj kort fra kortsamling</button>
+
+        <section class="card-container">
+            <div class="card" th:each="card : ${deck.cards}">
+                <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
+                <div class="card-content">
+                    <h3 th:text="${card.name}"></h3>
+                    <p th:text="${card.set}"></p>
+                    <p th:text="${card.type}"></p>
+                    <p th:text="${card.rarity}"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>

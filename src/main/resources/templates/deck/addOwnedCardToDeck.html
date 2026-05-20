@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilføj kort</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <header>
+        <!-- header indhold -->
+        <div th:insert="~{parts/navigation:: nav}"></div>
+    </header>
+    <main>
+        <div class="container">
+            <h2 th:text="${deck.name}"></h2>
+            <p>Tilføj kort fra kortsamling til deck</p>
+        </div>
+
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks/details/{id}(id=${deck.id})}'|">
+            Tilbage til deck</button>
+
+        <section class="card-container">
+            <div class="card" th:each="card : ${userCards}">
+                <img th:src="${card.imageUrl}" th:alt="|Billede af ${card.name}|">
+                <div class="card-content">
+                    <h3 th:text="${card.name}"></h3>
+                    <p th:text="${card.set}"></p>
+                    <p th:text="${card.type}"></p>
+                    <p th:text="${card.rarity}"></p>
+                    <form th:action="@{/myDecks/details/{id}/addCard/{cardId}(id=${deck.id}, cardId=${card.id})}" method="post">
+                        <button type="submit" class="submitButton">Tilføj til deck</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>
