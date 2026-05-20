@@ -33,4 +33,8 @@ public class EventService {
     public void cancelRegistrationForEvent(int userId, int eventId){
         eventRepository.cancelRegistrationToEvent(userId, eventId);
     }
+
+    public void createNewEvent(Event event){
+        eventRepository.createEvent(event);
+    }
 }

@@ -17,4 +17,6 @@ public interface IEventRepository {
     List<Event> findALLmySignedUpEvents(int userId);
 
     void cancelRegistrationToEvent(int userId, int eventId);
+
+    void createEvent(Event event);
 }

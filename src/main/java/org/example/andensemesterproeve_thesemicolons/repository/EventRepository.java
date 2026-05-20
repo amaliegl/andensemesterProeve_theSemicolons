@@ -87,7 +87,7 @@ public class EventRepository implements IEventRepository {
                                 INNER JOIN event_users ON events.id = event_users.event_id
                                 WHERE event_users.user_id = ?
                 """;
-
+//TODO - sørg for at opdatere event_status i databasen
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new Event(
                     rs.getInt("id"),
@@ -109,5 +109,15 @@ public class EventRepository implements IEventRepository {
                 """;
 
         jdbcTemplate.update(sql, userId, eventId);
+    }
+
+    @Override
+    public void createEvent(Event event) {
+       String sql = """
+                INSERT INTO events (creator_id, name, event_type,format, max_players, event_date, event_time, event_status)
+                VALUES (?,?,?,?,?,?,?,'Aaben_for_tilmelding' );
+        """;
+
+       jdbcTemplate.update(sql, event.getCreator().getId(), event.getName(), event.getType().name(), event.getFormat(), event.getMaxPlayers(), event.getDate(), event.getTime());
     }
 }
