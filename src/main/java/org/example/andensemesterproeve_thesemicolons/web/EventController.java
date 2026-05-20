@@ -21,9 +21,9 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/myEvents")
-    public String getMyEvents(Model model, HttpSession session){
+    public String getMyEvents(Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        if (user == null){
+        if (user == null) {
             return "redirect:/login";
         }
         model.addAttribute("sessionUser", user);
@@ -35,18 +35,18 @@ public class EventController {
     }
 
     @GetMapping("/allEvents")
-    public String getAllEvents(Model model, HttpSession session){
+    public String getAllEvents(Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        if (user == null){
+        if (user == null) {
             return "redirect:/login";
         }
-            List<Event> events = eventService.getAllEvents();
-            model.addAttribute("events", events);
+        List<Event> events = eventService.getAllEvents();
+        model.addAttribute("events", events);
         return "/event/allEvents";
     }
 
     @GetMapping("/signUp/myEvents/{eventId}")
-    public String signUpToEvent(@PathVariable("eventId") int eventId, HttpSession session){
+    public String signUpToEvent(@PathVariable("eventId") int eventId, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         int userId = user.getId();
         eventService.signUpForEvent(userId, eventId);
@@ -54,7 +54,7 @@ public class EventController {
     }
 
     @GetMapping("/cancelRegistration/myEvents/{eventId}")
-    public String cancelRegistrationToEvent(@PathVariable("eventId") int eventId, HttpSession session){
+    public String cancelRegistrationToEvent(@PathVariable("eventId") int eventId, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         int userId = user.getId();
         eventService.cancelRegistrationForEvent(userId, eventId);
@@ -62,9 +62,9 @@ public class EventController {
     }
 
     @GetMapping("/addEvent")
-    public String addEvent(Model model, HttpSession session){
+    public String addEvent(Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        if (user == null){
+        if (user == null) {
             return "redirect:/login";
         }
         model.addAttribute("event", new Event());
@@ -72,10 +72,27 @@ public class EventController {
     }
 
     @PostMapping("/addEvent")
-    public String createEvent (@ModelAttribute Event event, HttpSession session){
+    public String createEvent(@ModelAttribute Event event, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         event.setCreator(user);
         eventService.createNewEvent(event);
         return "redirect:/myEvents";
+    }
+
+    @GetMapping("/editEvent/myEvents/{eventId}")
+    public String editEvent(@PathVariable("eventId") int eventId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        Event event = eventService.getEventById(eventId);
+        model.addAttribute("event", event);
+        return ("event/editEvent");
+    }
+
+    @PostMapping("/updateEvent")
+    public String updateEvent(@ModelAttribute Event event) {
+        eventService.updateEvent(event);
+        return ("redirect:/myEvents");
     }
 }
