@@ -19,7 +19,7 @@
     <main>
         <div class="container">
             <h2>Min kortsamling</h2>
-            <h2><span th:text="|${#lists.size(cards)} kort|">Antal kort</span></h2>
+            <h2><span th:text="|${#lists.size(cards)} / ${#lists.size(user.cards)} kort|">Antal kort</span></h2>
         </div>
 
         <form method="get" action="/myCards">
