@@ -64,7 +64,7 @@
                     <p th:text="${card.set}"></p>
                     <p th:text="${card.type}"></p>
                     <p th:text="${card.rarity}"></p>
-                    <a href="" class="btn">Se detaljer</a>
+                    <a th:href="@{/myCards/details/{id}(id=${card.id})}" class="btn">Se detaljer</a>
                 </div>
             </div>
         </section>

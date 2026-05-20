@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CardRepositoryMySql implements ICardRepository {
@@ -145,6 +146,45 @@ public class CardRepositoryMySql implements ICardRepository {
                         rs.getBoolean("card_visible")
                 ), user.getId(), "%"+searchParam+"%"
         );
+    }
+
+    @Override
+    public Optional<Card> findUserCardByOwnedCardId(int ownedCardId) {
+        String sql = """
+                SELECT * FROM user_owned_cards
+                JOIN cards ON cards.id = user_owned_cards.card_id
+                WHERE user_owned_cards.id = ?
+                """;
+
+        List<Card> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Card(
+                        rs.getInt("user_owned_cards.id"),
+                        rs.getString("name"),
+                        CardType_ENUM.valueOf(rs.getString("type")),
+                        rs.getString("set_abbreviation"),
+                        Rarity_ENUM.valueOf(rs.getString("rarity")),
+                        rs.getString("image_url"),
+                        rs.getString("reference_url"),
+                        rs.getBoolean("for_swapping"),
+                        rs.getBoolean("card_visible")
+                ), ownedCardId
+        );
+
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(results.getFirst());
+    }
+
+    @Override
+    public void updateUserOwnedCard(Card card) {
+        String sql = """
+                UPDATE user_owned_cards
+                SET for_swapping = ?,
+                card_visible = ?
+                WHERE id = ?""";
+
+        jdbcTemplate.update(sql, card.isForSwapping(), card.isVisible(), card.getId());
     }
 
     /*

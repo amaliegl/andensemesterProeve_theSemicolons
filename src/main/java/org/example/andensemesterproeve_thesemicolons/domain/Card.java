@@ -11,6 +11,8 @@ public class Card {
     private boolean forSwapping;
     private boolean visible;
 
+    public Card() {}
+
     public Card(int id, String name, CardType_ENUM type, String set, Rarity_ENUM rarity,
                 String imageUrl, String referenceUrl, boolean forSwapping,
                 boolean visible) {
@@ -47,4 +49,22 @@ public class Card {
     public Rarity_ENUM getRarity() { return rarity;}
 
     public String getImageUrl() { return imageUrl;}
+
+    public String getReferenceUrl() { return referenceUrl;}
+
+    public boolean isForSwapping() {return forSwapping;}
+
+    public boolean isVisible() {return visible;}
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setForSwapping(boolean forSwapping) {
+        this.forSwapping = forSwapping;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }
