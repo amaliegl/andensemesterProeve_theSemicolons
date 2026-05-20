@@ -120,4 +120,57 @@ public class EventRepository implements IEventRepository {
 
        jdbcTemplate.update(sql, event.getCreator().getId(), event.getName(), event.getType().name(), event.getFormat(), event.getMaxPlayers(), event.getDate(), event.getTime());
     }
+
+    @Override
+    public Event getEventById(int eventId) {
+
+        String sql = """
+                SELECT * FROM events
+                                WHERE id = ?
+                """;
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            User eventCreator = new User();
+            eventCreator.setId(rs.getInt("creator_id"));
+
+            return new Event(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    eventCreator,
+                    EventType_ENUM.valueOf(rs.getString("event_type")),
+                    rs.getString("format"),
+                    rs.getInt("max_players"),
+                    rs.getDate("event_date").toLocalDate(),
+                    rs.getTime("event_time").toLocalTime(),
+                    EventStatus_ENUM.valueOf(rs.getString("event_status"))
+            );
+        }, eventId);
+    }
+
+
+
+
+    @Override
+    public int getNumberOfParticipantsFromId(int eventId) {
+        String sql= """
+                SELECT COUNT(*) FROM event_users WHERE event_id= ?
+                """;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId);
+        if (count == null){
+            return 0;
+        }
+        return count;
+    }
+
+    @Override
+    public void updateEventStatus(int eventId, String newStatus) {
+        String sql = """
+                UPDATE events
+                SET event_status = ?
+                WHERE id = ?
+                """;
+
+        jdbcTemplate.update(sql, newStatus, eventId);
+
+    }
 }
