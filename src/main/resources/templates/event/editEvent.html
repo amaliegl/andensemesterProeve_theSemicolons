@@ -8,7 +8,7 @@
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EditEvent</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="background-image auth-background">
 <div class="wrapper">
@@ -19,6 +19,38 @@
     <main>
         <div class="container">
             <h2>Redigér event</h2>
+            <form method="post" th:action="@{/updateEvent}" th:object="${event}">
+                <input type="hidden" th:field="*{id}">
+
+                <label>Navn:</label>
+                <input class="inputBox" type="text" id="name" th:field="*{name}" required>
+                <label class="inputLabel">Event type:
+                    <select th:field="*{type}" class="inputBox">
+                        <option th:each="type : ${T(org.example.andensemesterproeve_thesemicolons.domain.EventType_ENUM).values()}"
+                                th:value="${type.name()}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                </label>
+
+
+                <label>Format(Valgfrit):
+                    <input class="inputBox" type="text" id="format" th:field="*{format}">
+                </label>
+
+                <label>Max antal spillere:</label>
+                <input class="inputBox" type="number" id="maxPlayers" th:field="*{maxPlayers}" min="1" step="1"
+                       required>
+
+                <label>Dato:</label>
+                <input class="inputBox" type="date" id="date" name="date" th:value="${event.date != null} ? ${#temporals.format(event.date, 'yyyy-MM-dd')} : ''" required>
+
+                <label>Tidspunkt:</label>
+                <input class="inputBox" type="time" id="time" name="time" th:value="${event.time != null} ? ${#temporals.format(event.time, 'HH:mm')} : ''" required>
+
+                <br><br>
+                <button class="submitButton" type="submit">Gem ændringer</button>
+            </form>
 
         </div>
     </main>

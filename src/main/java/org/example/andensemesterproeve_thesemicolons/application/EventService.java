@@ -25,11 +25,15 @@ public class EventService {
         if (!eventRepository.UserIsAlreadySignedUp(userId, eventId)) {
             eventRepository.signUserUpForEvent(userId, eventId);
         }
-        Event event = eventRepository.getEventById(eventId);
+        Event event = getEventById(eventId);
         int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
         if (currentNumberOfParticipants >= event.getMaxPlayers()) {
             eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
         }
+    }
+
+    public Event getEventById(int eventId){
+        return eventRepository.getEventById(eventId);
     }
 
     public List<Event> getAllMyArrangedEvents(int userId) {
@@ -53,5 +57,9 @@ public class EventService {
 
     public void createNewEvent(Event event) {
         eventRepository.createEvent(event);
+    }
+
+    public void updateEvent(Event event){
+        eventRepository.updateEventInfo(event);
     }
 }

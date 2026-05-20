@@ -30,4 +30,6 @@ public interface IEventRepository {
     void cancelRegistrationToEvent(int userId, int eventId);
 
     void createEvent(Event event);
+
+    void updateEventInfo(Event event);
 }

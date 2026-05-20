@@ -198,4 +198,28 @@ public class EventRepository implements IEventRepository {
         jdbcTemplate.update(sql);
 
     }
+
+    @Override
+    public void updateEventInfo(Event event) {
+        String sql = """
+                UPDATE events
+                SET name = ?,
+                event_type = ?,
+                format = ?,
+                max_players = ?,
+                event_date = ?,
+                event_time = ?
+                WHERE id=?
+                """;
+
+        jdbcTemplate.update(sql,
+                event.getName(),
+                event.getType().name(),
+                event.getFormat(),
+                event.getMaxPlayers(),
+                event.getDate(),
+                event.getTime(),
+                event.getId()
+                );
+    }
 }

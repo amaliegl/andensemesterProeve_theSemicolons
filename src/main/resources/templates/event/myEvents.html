@@ -64,7 +64,7 @@
                             <p th:text="${event.eventStatus}">Event Status</p>
                         </div>
                         <br>
-                        <button class="submitButton" type="button" th:onclick="|window.location.href='{/editEvent/myEvents/{id}(id=${event.id})}'|">Redigér</button>
+                        <button class="submitButton" type="button" th:onclick="|window.location.href='@{/editEvent/myEvents/{id}(id=${event.id})}'|">Redigér</button>
 
                     </div>
                 </div>
