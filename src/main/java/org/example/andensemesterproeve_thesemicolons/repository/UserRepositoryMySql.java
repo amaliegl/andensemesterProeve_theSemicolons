@@ -85,7 +85,7 @@ public class UserRepositoryMySql implements IUserRepository {
     @Override
     public List<Deck> findAllDecksForUser(User user) {
         String sql = """
-                SELECT format, name FROM decks WHERE user_id = ?
+                SELECT * FROM decks WHERE user_id = ?
                 """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
