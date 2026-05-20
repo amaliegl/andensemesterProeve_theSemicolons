@@ -195,7 +195,6 @@ public class EventRepository implements IEventRepository {
                 AND event_status != 'Lukket_for_tilmelding'
                 AND event_status != 'Afholdt'
                 """;
-
         jdbcTemplate.update(sql);
 
     }
