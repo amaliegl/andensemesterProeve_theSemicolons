@@ -36,16 +36,18 @@
                 <form th:action="@{/myCards/details}" method="post" th:object="${card}" class="card-specific-info">
                     <input type="hidden" th:field="*{id}">
                     <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" name="swap" th:field="*{forSwapping}">
-                            Ønskes byttet
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="visible" th:field="*{visible}">
-                            Synligt for andre
-                        </label>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="swap" th:field="*{forSwapping}">
+                                Ønskes byttet
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="visible" th:field="*{visible}">
+                                Synligt for andre
+                            </label>
+                        </div>
                     </div>
                     <button type="submit" class="submitButton">Gem ændringer</button>
                 </form>
