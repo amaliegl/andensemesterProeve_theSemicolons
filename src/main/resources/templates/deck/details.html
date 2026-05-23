@@ -22,7 +22,7 @@
             <h2><span th:text="|${#lists.size(deck.cards)} kort i decket|">Antal kort</span></h2>
             <p><span th:if="${deck.format == null}">Intet Format</span></p>
             <p><span th:unless="${deck.format == null}" th:text="|${deck.format} format|">Format</span></p>
-            <a class="btn" th:href="@{/myDeck/editDeck/{id}(id=${deck.id})}">Redigér deck</a>
+            <a class="btn" th:href="@{/myDecks/editDeck/{id}(id=${deck.id})}">Redigér deckinformationer</a>
         </div>
 
         <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks/details/{id}/addCard(id=${deck.id})}'|">
