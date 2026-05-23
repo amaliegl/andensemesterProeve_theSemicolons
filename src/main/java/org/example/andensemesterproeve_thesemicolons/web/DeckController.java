@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.application.DeckService;
 import org.example.andensemesterproeve_thesemicolons.application.UserService;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,30 @@ public class DeckController {
         model.addAttribute("decks", sessionUser.getDecks());
 
         return "/deck/myDecks";
+    }
+
+    //Creating a new Deck
+    @GetMapping("addDeck")
+    public String getNewDeckPage(HttpSession session, Model model) {
+        User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("deck", new Deck());
+        return "deck/newDeck";
+    }
+
+    @PostMapping("addDeck")
+    public String postNewDeckForm(@ModelAttribute Deck deck, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
+        deckService.createNewUserDeck(sessionUser, deck);
+        refreshCurrentSessionUser(session);
+        return "redirect:/myDecks";
     }
 
     //Showing a specific deck

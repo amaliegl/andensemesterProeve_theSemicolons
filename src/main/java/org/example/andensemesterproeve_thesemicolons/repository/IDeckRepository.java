@@ -18,4 +18,6 @@ public interface IDeckRepository {
     void addOwnedCardToDeckByIds(int ownedCardId, int deckId);
 
     void updateUserDeckInfo(User user, Deck deck);
+
+    void createNewUserDeck(User user, Deck deck);
 }

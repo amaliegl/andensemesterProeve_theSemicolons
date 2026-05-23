@@ -92,4 +92,14 @@ public class DeckRepositoryMySql implements IDeckRepository {
 
         jdbcTemplate.update(sql, deck.getFormat(), deck.getName(), user.getId(), deck.getId());
     }
+
+    @Override
+    public void createNewUserDeck(User user, Deck deck) {
+        String sql = """
+                INSERT INTO decks (user_id, format, name)
+                VALUES (?, ?, ?)
+                """;
+
+        jdbcTemplate.update(sql, user.getId(), deck.getFormat(), deck.getName());
+    }
 }

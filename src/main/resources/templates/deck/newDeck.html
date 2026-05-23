@@ -8,7 +8,7 @@
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="background-image auth-background">
 <div class="wrapper">
@@ -19,6 +19,20 @@
     <main>
         <div class="container">
             <h2>Opret nyt deck</h2>
+
+            <form th:action="@{/myDecks/addDeck}" method="post" th:object="${deck}" class="card-specific-info">
+                <div>
+                    <label>Deck-navn:
+                        <input type="text" th:field="${deck.name}" class="inputBox">
+                    </label>
+                </div>
+                <div>
+                    <label>Deck-format:
+                        <input type="text" th:field="${deck.format}" class="inputBox">
+                    </label>
+                </div>
+                <button type="submit" class="submitButton">Opret deck</button>
+            </form>
 
         </div>
     </main>

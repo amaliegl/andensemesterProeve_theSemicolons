@@ -9,6 +9,8 @@ public class Deck {
     private String format;
     private List<Card> cards;
 
+    public Deck() {}
+
     public Deck(int id, String name, String format) {
         this.id = id;
         this.name = name;
@@ -37,7 +39,11 @@ public class Deck {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name.isBlank()) {
+            this.name = "Intet navn";
+        } else {
+            this.name = name;
+        }
     }
 
     public void setFormat(String format) {

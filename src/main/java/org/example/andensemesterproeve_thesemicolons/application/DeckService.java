@@ -79,6 +79,10 @@ public class DeckService {
             }
     }
 
+    public void createNewUserDeck(User user, Deck deck) {
+        deckRepository.createNewUserDeck(user, deck);
+    }
+
     private void populateDeckWithListOfCards(Deck deck, List<Integer> cardIds) {
         for (int i = 0; i < cardIds.size(); i++) {
             deck.addCard(deckRepository.findOwnedCardByOwnedCardId(cardIds.get(i)));
