@@ -33,8 +33,10 @@
                 </div>
                 <button type="submit" class="submitButton">Opret deck</button>
             </form>
-
         </div>
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks}'|">
+            Tilbage til mine decks (annullér oprettelse)</button>
+
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>
