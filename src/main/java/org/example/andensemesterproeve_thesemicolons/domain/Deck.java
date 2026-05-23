@@ -35,4 +35,16 @@ public class Deck {
     public void addCard(Card card) {
         cards.add(card);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFormat(String format) {
+        if (format.isBlank()) {
+            this.format = null;
+        } else {
+            this.format = format;
+        }
+    }
 }

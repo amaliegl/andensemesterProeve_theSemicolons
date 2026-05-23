@@ -7,10 +7,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/myDecks")
@@ -53,6 +50,37 @@ public class DeckController {
 
         model.addAttribute("deck", deck);
         return "/deck/details";
+    }
+
+    //Edit specific deck
+    @GetMapping("/editDeck/{id}")
+    public String getEditDeckPage(@PathVariable int id, HttpSession session, Model model) {
+        User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
+        Deck deck = deckService.getDeckById(id, sessionUser);
+
+        if (deck == null) {
+            return "redirect:/myDecks";
+        }
+
+        model.addAttribute("deck", deck);
+        return "/deck/editDeck";
+    }
+
+    @PostMapping("/editDeck")
+    public String submitEditDeckForm(@ModelAttribute Deck deck, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
+        deckService.editUserDeckInfo(sessionUser, deck);
+
+        refreshCurrentSessionUser(session);
+        return "redirect:/myDecks/details/" + deck.getId();
     }
 
     //Page for adding card to deck

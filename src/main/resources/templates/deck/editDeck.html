@@ -7,8 +7,8 @@
     <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Redigér deck</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="background-image auth-background">
 <div class="wrapper">
@@ -19,8 +19,23 @@
     <main>
         <div class="container">
             <h2>Rediger deck</h2>
-
+                    <form th:action="@{/myDecks/editDeck}" method="post" th:object="${deck}" class="card-specific-info">
+                        <input type="hidden" th:field="*{id}">
+                        <div>
+                        <label>Deck-navn:
+                            <input type="text" th:field="${deck.name}" class="inputBox">
+                        </label>
+                        </div>
+                        <div>
+                        <label>Deck-format:
+                            <input type="text" th:field="${deck.format}" class="inputBox">
+                        </label>
+                        </div>
+                        <button type="submit" class="submitButton">Gem ændringer</button>
+                    </form>
         </div>
+        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/myDecks/details/{id}(id=${deck.id})}'|">
+            Tilbage til deck</button>
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>
 </div>

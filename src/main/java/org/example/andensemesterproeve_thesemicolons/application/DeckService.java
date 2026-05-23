@@ -70,6 +70,15 @@ public class DeckService {
         return ownedCards;
     }
 
+    public void editUserDeckInfo(User user, Deck deck) {
+    //Assert that the user owns the deck before adding
+            for (int i = 0; i < user.getDecks().size(); i++) {
+                if (deck.getId() == user.getDecks().get(i).getId()) {
+                    deckRepository.updateUserDeckInfo(user, deck);
+                }
+            }
+    }
+
     private void populateDeckWithListOfCards(Deck deck, List<Integer> cardIds) {
         for (int i = 0; i < cardIds.size(); i++) {
             deck.addCard(deckRepository.findOwnedCardByOwnedCardId(cardIds.get(i)));

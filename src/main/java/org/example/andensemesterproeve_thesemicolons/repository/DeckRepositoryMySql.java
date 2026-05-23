@@ -1,9 +1,6 @@
 package org.example.andensemesterproeve_thesemicolons.repository;
 
-import org.example.andensemesterproeve_thesemicolons.domain.Card;
-import org.example.andensemesterproeve_thesemicolons.domain.CardType_ENUM;
-import org.example.andensemesterproeve_thesemicolons.domain.Deck;
-import org.example.andensemesterproeve_thesemicolons.domain.Rarity_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -81,5 +78,18 @@ public class DeckRepositoryMySql implements IDeckRepository {
                     """;
 
         jdbcTemplate.update(sql, deckId, ownedCardId);
+    }
+
+    @Override
+    public void updateUserDeckInfo(User user, Deck deck) {
+        String sql = """
+                UPDATE decks
+                SET format = ?,
+                name = ?
+                WHERE user_id = ?
+                AND id = ?
+                """;
+
+        jdbcTemplate.update(sql, deck.getFormat(), deck.getName(), user.getId(), deck.getId());
     }
 }
