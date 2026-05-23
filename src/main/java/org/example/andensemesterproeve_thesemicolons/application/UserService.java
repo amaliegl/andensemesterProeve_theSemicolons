@@ -46,7 +46,6 @@ public class UserService {
         try {
             user.validateValues();
         } catch (IllegalArgumentException e) {
-            System.out.println(e);
             return false;
         }
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
@@ -89,18 +88,14 @@ public class UserService {
         if (admin.getTitle() == Title_ENUM.Admin) {
             Optional<User> usernameUser = userRepository.adminFindUserByUsername(username);
 
-            if (usernameUser.isEmpty()) {
-                return null;
-            }
+            return usernameUser.orElse(null);
 
-            return usernameUser.get();
         } else {
             throw new InsufficientRightsException("User " + admin + " attempting to access adminFindUserByUsername() without Admin rights");
         }
     }
 
     public User refreshSessionUser(User sessionUser) {
-        System.out.println("Session user antal kort før refresh: " + sessionUser.getCards().size());
         Optional<User> user = userRepository.findByUsername(sessionUser.getUsername());
 
         if (user.isEmpty()) {
@@ -109,7 +104,6 @@ public class UserService {
         User foundUser = user.get();
         fillUserDecksWithTheirCards(foundUser);
 
-        System.out.println("Session user antal kort efter refresh: " + foundUser.getCards().size());
         return foundUser;
     }
 
