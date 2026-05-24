@@ -22,6 +22,9 @@
             <br><br>
             <span th:text="|Email: ${user.email}|">Email</span>
             <br> <br>
+            <p><span th:text="|Antal deck: ${#lists.size(user.decks)}|">Antal deck</span></p>
+            <p><span th:text="|Antal kort: ${#lists.size(user.cards)}|">Antal kort</span></p>
+            <br>
             <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/logout}'|">Log ud</button>
 
         </div>
