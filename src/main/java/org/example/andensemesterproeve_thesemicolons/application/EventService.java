@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,6 +71,21 @@ public class EventService {
 
     public void updateEvent(Event event) {
         eventRepository.updateEventInfo(event);
+    }
+
+    public List<Event> getAllMyArrangedEventsFiltered(List<Event> events, String open, String concluded){
+        if ((open == null || open.isEmpty()) && (concluded == null || concluded.isEmpty())){
+            return events;
+        }
+        List<Event> filteredMyArrangedEventsList = new ArrayList<>();
+        for (Event event : events){
+            boolean matchOpenForSignUp = (open !=null && open.equals("true") && !event.getEventStatus().equals(EventStatus_ENUM.Afholdt));
+            boolean matchConcluded = (concluded !=null && concluded.equals("true") && event.getEventStatus().equals(EventStatus_ENUM.Afholdt));
+
+            if (matchOpenForSignUp || matchConcluded){
+                filteredMyArrangedEventsList.add(event);
+            }
+        } return filteredMyArrangedEventsList;
     }
 
     public List<Event> getAllEventsSorted(String sortBy) {

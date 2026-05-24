@@ -3,7 +3,6 @@ package org.example.andensemesterproeve_thesemicolons.web;
 import jakarta.servlet.http.HttpSession;
 import org.example.andensemesterproeve_thesemicolons.application.EventService;
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
-import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,8 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/myEvents")
-    public String getMyEvents(@RequestParam(name = "sortBy", required = false) String sortBy, Model model, HttpSession session) {
+    public String getMyEvents(@RequestParam(name = "sortBy", required = false) String sortBy, @RequestParam(name = "open", required = false) String open,
+                              @RequestParam(name = "concluded", required = false) String concluded, Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         if (user == null) {
             return "redirect:/login";
@@ -27,9 +27,13 @@ public class EventController {
         model.addAttribute("sessionUser", user);
         List<Event> myArrangedEvents = eventService.getAllMyArrangedEventsSorted(sortBy, user.getId());
         List<Event> mySignedUpEvents = eventService.getALLmySignedUpEventsSorted(sortBy, user.getId());
+        List<Event> myArrangedEventsFiltered = eventService.getAllMyArrangedEventsFiltered(myArrangedEvents, open, concluded);
         model.addAttribute("mySignedUpEvents", mySignedUpEvents);
         model.addAttribute("myArrangedEvents", myArrangedEvents);
         model.addAttribute("selectedSort", sortBy);
+        model.addAttribute("myArrangedEvents", myArrangedEventsFiltered);
+        model.addAttribute("openParam", open);
+        model.addAttribute("concludedParam", concluded);
         return "/event/myEvents";
     }
 

@@ -34,10 +34,27 @@
                     <option value="tournament" th:selected="${selectedSort == 'tournament'}">Turnering</option>
                 </select>
             </label>
-        </form>
+
 
         <div th:if="${sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Admin or sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Arrangoer}">
             <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/addEvent}'|">Opret event</button>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input class="checkboxes" type="checkbox" name="open" value="true"
+                               onchange="this.form.submit()"
+                               th:checked="${openParam == 'true'}" style="margin-bottom:15px">
+                        Vis kommende events
+                    </label>
+                    <br>
+                    <label>
+                        <input class="checkboxes" type="checkbox" name="concluded" value="true"
+                               onchange="this.form.submit()"
+                               th:checked="${concludedParam == 'true'}" style="margin-bottom:15px">
+                        Vis afsluttede events
+                    </label>
+                </div>
+            </form>
         </div>
 
         <section class="event-container arranged-events">
