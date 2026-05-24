@@ -7,7 +7,7 @@ public class Deck {
     private int id;
     private String name;
     private String format;
-    private List<Card> cards;
+    private final List<Card> cards = new ArrayList<>();
 
     public Deck() {}
 
@@ -15,7 +15,6 @@ public class Deck {
         this.id = id;
         this.name = name;
         this.format = format;
-        this.cards = new ArrayList<>();
     }
 
     public int getId() {
