@@ -19,16 +19,17 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/myEvents")
-    public String getMyEvents(Model model, HttpSession session) {
+    public String getMyEvents(@RequestParam(name = "sortBy", required = false) String sortBy, Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         if (user == null) {
             return "redirect:/login";
         }
         model.addAttribute("sessionUser", user);
-        List<Event> myArrangedEvents = eventService.getAllMyArrangedEvents(user.getId());
-        List<Event> mySignedUpEvents = eventService.getALLmySignedUpEvents(user.getId());
+        List<Event> myArrangedEvents = eventService.getAllMyArrangedEventsSorted(sortBy, user.getId());
+        List<Event> mySignedUpEvents = eventService.getALLmySignedUpEventsSorted(sortBy, user.getId());
         model.addAttribute("mySignedUpEvents", mySignedUpEvents);
         model.addAttribute("myArrangedEvents", myArrangedEvents);
+        model.addAttribute("selectedSort", sortBy);
         return "/event/myEvents";
     }
 

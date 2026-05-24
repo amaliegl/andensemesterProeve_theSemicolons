@@ -74,7 +74,22 @@ public class EventService {
 
     public List<Event> getAllEventsSorted(String sortBy) {
         List<Event> events = getAllEvents();
+       sortEventList(sortBy, events);
+        return events;
+    }
 
+    public List<Event> getAllMyArrangedEventsSorted(String sortBy, int UserId){
+        List<Event> events = getAllMyArrangedEvents(UserId);
+        sortEventList(sortBy, events);
+        return events;
+    }
+    public List<Event> getALLmySignedUpEventsSorted(String sortBy, int UserId){
+        List<Event> events = getALLmySignedUpEvents(UserId);
+        sortEventList(sortBy, events);
+        return events;
+    }
+
+    public void sortEventList(String sortBy, List<Event> events){
         if (sortBy != null && !sortBy.isEmpty()) {
             if (sortBy.equals("date_desc")) {
                 sortByDate(events);
@@ -87,7 +102,6 @@ public class EventService {
 
             }
         }
-        return events;
     }
 
     public void sortByDate(List<Event> events) {
@@ -104,4 +118,7 @@ public class EventService {
     public void sortBYTournament(List<Event> events) {
         events.sort((e1, e2)-> e2.getType().compareTo(e1.getType())); //Sorting by 2nd enum on the list (turnering)
     }
+
+
 }
+
