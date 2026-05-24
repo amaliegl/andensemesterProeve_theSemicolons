@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deckforge hjemmeside">
+    <meta name="keywords" content="HTML, CSS, Deckforge, MTG, TCG, Magic The Gathering, cards, kort">
+    <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="background-image auth-background">
+<div class="wrapper">
+    <main>
+        <div class="container">
+            <h2>Fejl 404 - siden findes ikke :(</h2>
+            <p>Siden, du forsøger at tilgå, findes ikke</p>
+            <br>
+            <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/homePage}'|">Gå til forsiden</button>
+
+        </div>
+    </main>
+    <div th:insert="~{parts/footer:: footer}"></div>
+</div>
+</body>
+
+</html>
