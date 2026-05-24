@@ -3,14 +3,12 @@ package org.example.andensemesterproeve_thesemicolons.web;
 import jakarta.servlet.http.HttpSession;
 import org.example.andensemesterproeve_thesemicolons.application.EventService;
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
+import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,14 +33,17 @@ public class EventController {
     }
 
     @GetMapping("/allEvents")
-    public String getAllEvents(Model model, HttpSession session) {
+    public String getAllEvents(@RequestParam(name = "sortBy", required = false) String sortBy, Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         if (user == null) {
             return "redirect:/login";
         }
-        List<Event> events = eventService.getAllEvents();
+        List<Event> events = eventService.getAllEventsSorted(sortBy);
+
         model.addAttribute("events", events);
-        return "/event/allEvents";
+        model.addAttribute("selectedSort", sortBy);
+
+        return "event/allEvents";
     }
 
     @GetMapping("/signUp/myEvents/{eventId}")

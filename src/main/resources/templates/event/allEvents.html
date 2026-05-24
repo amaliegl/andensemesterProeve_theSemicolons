@@ -22,6 +22,19 @@
         <div class="container">
             <h2>Alle events</h2>
         </div>
+
+        <form method="get" th:action="@{/allEvents}">
+            <label for="sortBy">Sorter events:
+                <select name="sortBy" id="sortBy" onchange="this.form.submit()" class="inputBox">
+                    <option value="none" th:selected="${selectedSort == 'none' || selectedSort==null}">Intet filter</option>
+                    <option value="date_desc" th:selected="${selectedSort == 'date_desc'}">Dato</option>
+                    <option value="openForSignUp" th:selected="${selectedSort == 'openForSignUp'}">Åben for tilmelding</option>
+                    <option value="casual" th:selected="${selectedSort == 'casual'}">Casual event</option>
+                    <option value="tournament" th:selected="${selectedSort == 'tournament'}">Turnering</option>
+                </select>
+            </label>
+        </form>
+
         <div class="error" th:text="${error}"></div>
 
         <section class="event-container">
