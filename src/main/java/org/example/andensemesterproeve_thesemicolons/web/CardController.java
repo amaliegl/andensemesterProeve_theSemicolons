@@ -149,6 +149,9 @@ public class CardController {
                                           HttpSession session,
                                           RedirectAttributes redirectAttributes) {
         User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
         cardService.addCardToUsersCollection(cardId, sessionUser);
 
         if (selectedSetSort == null || selectedSetSort.isBlank()) {
