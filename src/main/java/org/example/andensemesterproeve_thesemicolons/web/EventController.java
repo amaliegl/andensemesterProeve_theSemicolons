@@ -46,11 +46,16 @@ public class EventController {
     }
 
     @GetMapping("/signUp/myEvents/{eventId}")
-    public String signUpToEvent(@PathVariable("eventId") int eventId, HttpSession session) {
+    public String signUpToEvent(@PathVariable("eventId") int eventId, HttpSession session, Model model) {
         User user = (User) session.getAttribute("currentUser");
         int userId = user.getId();
-        eventService.signUpForEvent(userId, eventId);
-        return "redirect:/myEvents";
+        if (!eventService.signUpForEvent(userId, eventId)) {
+            model.addAttribute("error", "Ikke muligt at tilmelde sig event");
+            model.addAttribute("events", eventService.getAllEvents());
+            return "event/allEvents";
+        } else{
+            return "redirect:/myEvents";
+        }
     }
 
     @GetMapping("/cancelRegistration/myEvents/{eventId}")

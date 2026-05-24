@@ -11,7 +11,7 @@
     <meta name="author" content="Amalie Gravgaard Lange & Sara Holmberg Juul">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllEvents</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="background-image auth-background">
 <div class="wrapper">
@@ -22,49 +22,51 @@
         <div class="container">
             <h2>Alle events</h2>
         </div>
+        <div class="error" th:text="${error}"></div>
 
-            <section class="event-container">
-                <div class="card" th:each="event : ${events}">
-                    <div class="event-card-content">
-                        <h3 th:text="${event.name}">Type</h3>
+        <section class="event-container">
+            <div class="card" th:each="event : ${events}">
+                <div class="event-card-content">
+                    <h3 th:text="${event.name}">Type</h3>
 
-                        <div class="event-details-row">
-
-                            <div class="info-item">
-                                 <label>Type:</label>
-                                 <p th:text="${event.type}">Type</p>
-                            </div>
-
-                            <div class="info-item">
-                                <label>Format:</label>
-                                 <p th:text="${event.format}">Format</p>
-                            </div>
-
-                            <div class="info-item">
-                                <label>Max antal Spillere:</label>
-                                <p th:text="${event.maxPlayers}">Max antal spillere</p>
-                            </div>
-
-                            <div class="info-item">
-                                <label>Dato:</label>
-                                <p th:text="${event.date}">Dato</p>
-                            </div>
-
-                            <div class="info-item">
-                                <label>Tidspunkt:</label>
-                                <p th:text="${event.time}">Tid</p>
-                            </div>
-
-                            <div class="info-item">
-                                <label>Event status:</label>
-                                <p th:text="${event.eventStatus}">Event Status</p>
-                            </div>
-                            <br>
-                        <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/signUp/myEvents/{id}(id=${event.id})}'|">Tilmeld</button>
+                    <div class="event-details-row">
+                        <div class="info-item">
+                            <label>Type:</label>
+                            <p th:text="${event.type}">Type</p>
                         </div>
+
+                        <div class="info-item">
+                            <label>Format:</label>
+                            <p th:text="${event.format}">Format</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Max antal Spillere:</label>
+                            <p th:text="${event.maxPlayers}">Max antal spillere</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Dato:</label>
+                            <p th:text="${event.date}">Dato</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Tidspunkt:</label>
+                            <p th:text="${event.time}">Tid</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Event status:</label>
+                            <p th:text="${event.eventStatus}">Event Status</p>
+                        </div>
+                        <br>
+                        <button class="changePageButton" type="button"
+                                th:onclick="|window.location.href='@{/signUp/myEvents/{id}(id=${event.id})}'|">Tilmeld
+                        </button>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
     </main>
     <div th:insert="~{parts/footer:: footer}"></div>

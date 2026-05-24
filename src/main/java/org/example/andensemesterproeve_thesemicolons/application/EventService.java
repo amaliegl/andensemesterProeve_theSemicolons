@@ -2,7 +2,6 @@ package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
 import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
-import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +20,25 @@ public class EventService {
         return eventRepository.findAllEvents();
     }
 
-    public void signUpForEvent(int userId, int eventId) {
+    public boolean signUpForEvent(int userId, int eventId) {
+        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
+        Event event = getEventById(eventId);
+
+        if(event.getEventStatus() != EventStatus_ENUM.Aaben_for_tilmelding){
+            return false;
+        }
+
+        if(currentNumberOfParticipants >= event.getMaxPlayers()){
+            return false;
+        }
         if (!eventRepository.UserIsAlreadySignedUp(userId, eventId)) {
             eventRepository.signUserUpForEvent(userId, eventId);
+            if (currentNumberOfParticipants >= event.getMaxPlayers()) {
+                eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
+            }
+            return true;
         }
-        Event event = getEventById(eventId);
-        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
-        if (currentNumberOfParticipants >= event.getMaxPlayers()) {
-            eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
-        }
+        return true;
     }
 
     public Event getEventById(int eventId){
