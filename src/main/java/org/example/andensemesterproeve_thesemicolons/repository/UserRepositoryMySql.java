@@ -163,19 +163,6 @@ public class UserRepositoryMySql implements IUserRepository {
     }
 
     @Override
-    public List<Title_ENUM> findAllUniqueTitles() {
-        String sql = "SELECT DISTINCT title FROM users ORDER BY title ASC";
-
-        try {
-            return jdbcTemplate.query(sql, (rs, rowNum) ->
-                    Title_ENUM.valueOf(rs.getString("title"))
-            );
-        } catch (Exception e) {
-            throw new DataAccessException("Error in findAllUniqueTitles()", e);
-        }
-    }
-
-    @Override
     public List<User> findAllUsersByTitle(Title_ENUM title) {
         String sql = "SELECT username, title FROM users WHERE title = ? ORDER BY username ASC";
         //Intentionally selecting specific columns to avoid fetching passwords

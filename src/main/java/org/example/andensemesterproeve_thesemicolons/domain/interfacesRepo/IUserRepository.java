@@ -22,8 +22,6 @@ public interface IUserRepository {
 
     List<User> findAllUsers();
 
-    List<Title_ENUM> findAllUniqueTitles();
-
     List<User> findAllUsersByTitle(Title_ENUM title);
 
     void adminEditUser(User user);

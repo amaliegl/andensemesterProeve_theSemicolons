@@ -5,7 +5,6 @@ import org.example.andensemesterproeve_thesemicolons.application.DeckService;
 import org.example.andensemesterproeve_thesemicolons.application.UserService;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

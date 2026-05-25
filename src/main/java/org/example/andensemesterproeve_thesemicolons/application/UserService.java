@@ -89,10 +89,6 @@ public class UserService {
         }
     }
 
-    public List<Title_ENUM> getAllTitles() {
-        return userRepository.findAllUniqueTitles();
-    }
-
     public List<User> filterUsersByTitle(String title) {
         try {
             if (Title_ENUM.Spiller.name().equals(title)) {

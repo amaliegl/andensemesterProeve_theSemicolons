@@ -1,6 +1,5 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
-import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.example.andensemesterproeve_thesemicolons.repository.ExceptionRepositoryMySql;
 import org.springframework.stereotype.Service;
 
