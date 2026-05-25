@@ -169,6 +169,14 @@ public class UserService {
         }
     }
 
+    public boolean confirmUserIsAdmin(User user) {
+        return user.getTitle() == Title_ENUM.Admin;
+    }
+
+    public boolean passwordAndRepeatedPasswordMatch(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+
     private void fillUserDecksWithTheirCards(User user) {
         try {
             for (int i = 0; i < user.getDecks().size(); i++) {
