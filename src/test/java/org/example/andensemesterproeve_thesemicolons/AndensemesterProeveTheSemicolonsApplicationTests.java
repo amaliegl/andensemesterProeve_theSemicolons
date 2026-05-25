@@ -1,11 +1,22 @@
 package org.example.andensemesterproeve_thesemicolons;
 
+import org.example.andensemesterproeve_thesemicolons.application.EventService;
+import org.example.andensemesterproeve_thesemicolons.application.ExceptionService;
 import org.example.andensemesterproeve_thesemicolons.domain.*;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class AndensemesterProeveTheSemicolonsApplicationTests {
@@ -60,4 +71,34 @@ class AndensemesterProeveTheSemicolonsApplicationTests {
         deck.addCard(card);
         assertEquals(1, deck.getCards().size());
     }
+    @Test
+    void createNewEventWithParameters(){
+        Event event = new Event(1, "fun", EventType_ENUM.Casual, "Commander",4, LocalDate.now(), LocalTime.of(11,23,43), EventStatus_ENUM.Lukket_for_tilmelding);
+        assertEquals(1, event.getId());
+        assertEquals("fun", event.getName());
+        assertEquals(EventType_ENUM.Casual, event.getType());
+        assertEquals("Commander", event.getFormat());
+        assertEquals(4, event.getMaxPlayers());
+        assertEquals(LocalDate.now(), event.getDate());
+        assertEquals(LocalTime.of(11,23,43), event.getTime());
+        assertEquals(EventStatus_ENUM.Lukket_for_tilmelding, event.getEventStatus());
+    }
+
+    @Test
+    void ShowAllMyArrangedEvents(){
+        IEventRepository mockRepository = mock(IEventRepository.class);
+        ExceptionService mockExceptionService = mock(ExceptionService.class);
+        EventService eventService = new EventService(mockRepository, mockExceptionService);
+        User testUser = new User(1, "testUser", "testUser@email.com", Title_ENUM.Admin);
+        Event testEvent = new Event(1, "fun", EventType_ENUM.Casual, "Commander",4, LocalDate.now(), LocalTime.of(11,23,43), EventStatus_ENUM.Aaben_for_tilmelding);
+        List<Event> expectedList = List.of(testEvent);
+
+        when(mockRepository.findAllMyArrangedEvents(testUser.getId())).thenReturn(expectedList);
+        eventService.getAllMyArrangedEvents(testUser.getId());
+
+        List<Event> actualList = eventService.getAllMyArrangedEvents(testUser.getId());
+        assertEquals(expectedList, actualList);
+    }
+
+
 }
