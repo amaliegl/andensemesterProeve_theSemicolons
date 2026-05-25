@@ -1,8 +1,8 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
-import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
-import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

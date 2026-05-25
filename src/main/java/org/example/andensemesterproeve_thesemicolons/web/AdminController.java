@@ -2,7 +2,7 @@ package org.example.andensemesterproeve_thesemicolons.web;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.andensemesterproeve_thesemicolons.application.UserService;
-import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

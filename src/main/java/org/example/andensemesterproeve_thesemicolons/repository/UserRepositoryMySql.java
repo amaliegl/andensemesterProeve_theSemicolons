@@ -1,7 +1,10 @@
 package org.example.andensemesterproeve_thesemicolons.repository;
 
 import org.example.andensemesterproeve_thesemicolons.domain.*;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.CardType_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Rarity_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IUserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

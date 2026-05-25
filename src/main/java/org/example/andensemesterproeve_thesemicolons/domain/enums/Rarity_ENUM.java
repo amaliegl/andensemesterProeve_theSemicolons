@@ -1,4 +1,4 @@
-package org.example.andensemesterproeve_thesemicolons.domain;
+package org.example.andensemesterproeve_thesemicolons.domain.enums;
 
 public enum Rarity_ENUM {
     Common,

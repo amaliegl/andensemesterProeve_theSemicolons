@@ -1,6 +1,9 @@
 package org.example.andensemesterproeve_thesemicolons.repository;
 
 import org.example.andensemesterproeve_thesemicolons.domain.*;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

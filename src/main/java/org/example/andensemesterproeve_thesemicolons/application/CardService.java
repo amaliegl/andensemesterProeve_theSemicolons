@@ -1,10 +1,9 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Card;
-import org.example.andensemesterproeve_thesemicolons.domain.CardType_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.CardType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
-import org.example.andensemesterproeve_thesemicolons.repository.ICardRepository;
-import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.ICardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

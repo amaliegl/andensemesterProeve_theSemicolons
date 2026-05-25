@@ -1,10 +1,10 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;
-import org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.exceptions.InsufficientRightsException;
-import org.example.andensemesterproeve_thesemicolons.repository.IUserRepository;
+import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IUserRepository;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
 

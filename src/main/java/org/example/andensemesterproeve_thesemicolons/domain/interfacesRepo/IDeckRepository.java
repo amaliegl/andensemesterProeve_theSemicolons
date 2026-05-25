@@ -1,4 +1,4 @@
-package org.example.andensemesterproeve_thesemicolons.repository;
+package org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Card;
 import org.example.andensemesterproeve_thesemicolons.domain.Deck;

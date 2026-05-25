@@ -1,8 +1,6 @@
-package org.example.andensemesterproeve_thesemicolons.repository;
+package org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo;
 
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
-import org.example.andensemesterproeve_thesemicolons.domain.EventStatus_ENUM;
-import org.example.andensemesterproeve_thesemicolons.domain.User;
 
 import java.util.List;
 

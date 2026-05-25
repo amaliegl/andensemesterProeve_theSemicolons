@@ -1,5 +1,7 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

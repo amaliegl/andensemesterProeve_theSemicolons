@@ -1,5 +1,8 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;

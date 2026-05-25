@@ -1,5 +1,8 @@
 package org.example.andensemesterproeve_thesemicolons.domain;
 
+import org.example.andensemesterproeve_thesemicolons.domain.enums.CardType_ENUM;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Rarity_ENUM;
+
 public class Card {
     private int id;
     private String name;

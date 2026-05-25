@@ -1,7 +1,7 @@
-package org.example.andensemesterproeve_thesemicolons.repository;
+package org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo;
 
 import org.example.andensemesterproeve_thesemicolons.domain.*;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 
 import java.util.List;
 import java.util.Optional;
