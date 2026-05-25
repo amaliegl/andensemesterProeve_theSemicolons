@@ -25,7 +25,7 @@
                 <input class="inputBox" type="text" id="name" th:field="*{name}" required>
                 <label class="inputLabel">Event type:
                     <select th:field="*{type}" class="inputBox">
-                        <option th:each="type : ${T(org.example.andensemesterproeve_thesemicolons.domain.EventType_ENUM).values()}"
+                        <option th:each="type : ${T(org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM).values()}"
                                 th:value="${type.name()}"
                                 th:text="${type}">
                         </option>

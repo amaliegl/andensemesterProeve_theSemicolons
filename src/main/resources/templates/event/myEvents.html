@@ -37,7 +37,7 @@
         </form>
 
 
-        <div th:if="${sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Admin or sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Arrangoer}">
+        <div th:if="${sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM).Admin or sessionUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM).Arrangoer}">
             <button class="changePageButton" type="button" th:onclick="|window.location.href='@{/addEvent}'|">Opret event</button>
 
                 <div class="checkbox-group">

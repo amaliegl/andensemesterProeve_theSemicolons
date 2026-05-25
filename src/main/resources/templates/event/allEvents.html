@@ -76,7 +76,7 @@
                         <button class="changePageButton" type="button"
                                 th:onclick="|window.location.href='@{/signUp/myEvents/{id}(id=${event.id})}'|">Tilmeld
                         </button>
-                        <div th:if="${session.currentUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).Admin}">
+                        <div th:if="${session.currentUser.title == T(org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM).Admin}">
                             <button class="submitButton" type="button" th:onclick="|window.location.href='@{/editEvent/myEvents/{id}(id=${event.id})}'|">Redigér</button>
                         </div>
                     </div>

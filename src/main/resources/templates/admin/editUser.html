@@ -28,7 +28,7 @@
             <div>
                 <label class="inputLabel">Rolle:
                 <select th:field="*{title}" class="inputBox">
-                    <option th:each="title : ${T(org.example.andensemesterproeve_thesemicolons.domain.Title_ENUM).values()}"
+                    <option th:each="title : ${T(org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM).values()}"
                             th:value="${title.name()}"
                             th:text="${title}">
                     </option>
