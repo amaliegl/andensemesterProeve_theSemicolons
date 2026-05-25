@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthenticationController {
@@ -46,7 +47,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model) {
+    public String register(@ModelAttribute User user,
+                           @RequestParam(value = "repeatPassword") String repeatPassword,
+                           Model model) {
+        if (!userService.passwordAndRepeatedPasswordMatch(user, repeatPassword)) {
+            model.addAttribute("error", "Password matcher ikke");
+            return "authentication/register";
+        }
         if (userService.createUser(user)) {
             //bruger oprettet
             return "authentication/login";
