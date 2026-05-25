@@ -75,3 +75,11 @@ ALTER TABLE user_owned_cards
 
 ALTER TABLE user_owned_cards
     ALTER COLUMN card_visible SET DEFAULT false;
+
+create table exception_log (
+                               exceptionLog_id INT AUTO_INCREMENT PRIMARY KEY,
+                               timeHappened TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                               exception VARCHAR(100),
+                               message VARCHAR(500),
+                               stackTrace VARCHAR(1000)
+);
