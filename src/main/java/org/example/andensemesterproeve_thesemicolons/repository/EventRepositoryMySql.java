@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class EventRepository implements IEventRepository {
+public class EventRepositoryMySql implements IEventRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public EventRepository(JdbcTemplate jdbcTemplate) {
+    public EventRepositoryMySql(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

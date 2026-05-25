@@ -1,6 +1,5 @@
 package org.example.andensemesterproeve_thesemicolons.application;
 
-import org.example.andensemesterproeve_thesemicolons.repository.EventRepository;
 import org.example.andensemesterproeve_thesemicolons.repository.IEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
