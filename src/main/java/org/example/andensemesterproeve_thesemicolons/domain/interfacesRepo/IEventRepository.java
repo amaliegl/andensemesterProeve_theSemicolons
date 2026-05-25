@@ -9,7 +9,7 @@ public interface IEventRepository {
 
     void signUserUpForEvent(int userId, int eventId);
 
-    Boolean UserIsAlreadySignedUp(int userId, int eventId);
+    Boolean userIsAlreadySignedUp(int userId, int eventId);
 
     Event getEventById(int eventId);
 
@@ -21,9 +21,9 @@ public interface IEventRepository {
 
     void updateStatusForOngoingEvents();
 
-    List<Event> FindAllMyArrangedEvents(int userId);
+    List<Event> findAllMyArrangedEvents(int userId);
 
-    List<Event> findALLmySignedUpEvents(int userId);
+    List<Event> findAllMySignedUpEvents(int userId);
 
     void cancelRegistrationToEvent(int userId, int eventId);
 

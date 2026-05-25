@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.CardType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Rarity_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.ICardRepository;
+import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,104 +25,136 @@ public class CardRepositoryMySql implements ICardRepository {
     public List<String> findAllUniqueSetAbbreviations() {
         String sql = "SELECT DISTINCT set_abbreviation FROM cards ORDER BY set_abbreviation ASC";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                rs.getString("set_abbreviation")
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    rs.getString("set_abbreviation")
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllUniqueSetAbbreviations()", e);
+        }
     }
 
     @Override
     public List<CardType_ENUM> findAllUniqueTypes() {
             String sql = "SELECT DISTINCT type FROM cards ORDER BY type ASC";
 
-            return jdbcTemplate.query(sql, (rs, rowNum) ->
-                    CardType_ENUM.valueOf(rs.getString("type"))
-            );
+            try {
+                return jdbcTemplate.query(sql, (rs, rowNum) ->
+                        CardType_ENUM.valueOf(rs.getString("type"))
+                );
+            } catch (Exception e) {
+                throw new DataAccessException("Error in findAllUniqueTypes()", e);
+            }
     }
 
     @Override
     public boolean checkIfCardIdExists(int cardId) {
         String sql ="SELECT id FROM cards WHERE id = ?";
 
-        List<Integer> results = jdbcTemplate.query(sql, (rs, rowNum) ->
-                rs.getInt("id"), cardId
-        );
+        try {
+            List<Integer> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                    rs.getInt("id"), cardId
+            );
 
-        return !results.isEmpty();
+            return !results.isEmpty();
+        } catch (Exception e) {
+            throw new DataAccessException("Error in checkIfCardIdExists()", e);
+        }
     }
 
     @Override
     public void addCardToUserCollection(int cardId, User sessionUser) {
         String sql = "INSERT INTO user_owned_cards (user_id, card_id) VALUES (?, ?)";
 
-        jdbcTemplate.update(sql, sessionUser.getId(), cardId);
+        try {
+            jdbcTemplate.update(sql, sessionUser.getId(), cardId);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in addCardToUserCollection()", e);
+        }
     }
 
     @Override
     public List<Card> findAllCards() {
         String sql ="SELECT * FROM cards";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url")
-                )
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url")
+                    )
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllCards()", e);
+        }
     }
 
     @Override
     public List<Card> findAllCardsBySet(String set) {
         String sql ="SELECT * FROM cards WHERE set_abbreviation = ?";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url")
-                ), set
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url")
+                    ), set
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllCardsBySet()", e);
+        }
     }
 
     @Override
     public List<Card> findAllCardsByType(String type) {
         String sql ="SELECT * FROM cards WHERE type = ?";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url")
-                ), type
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url")
+                    ), type
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllCardsByType()", e);
+        }
     }
 
     @Override
     public List<Card> findAllCardsBySetAndType(String set, String type) {
         String sql ="SELECT * FROM cards WHERE set_abbreviation = ? AND type = ?";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url")
-                ), set, type
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url")
+                    ), set, type
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllCardsBySetAndType()", e);
+        }
     }
 
     @Override
@@ -133,19 +166,23 @@ public class CardRepositoryMySql implements ICardRepository {
                 AND cards.name LIKE ?
                 """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("user_owned_cards.id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url"),
-                        rs.getBoolean("for_swapping"),
-                        rs.getBoolean("card_visible")
-                ), user.getId(), "%"+searchParam+"%"
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("user_owned_cards.id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url"),
+                            rs.getBoolean("for_swapping"),
+                            rs.getBoolean("card_visible")
+                    ), user.getId(), "%" + searchParam + "%"
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findUserCardsByNameSearch()", e);
+        }
     }
 
     @Override
@@ -156,24 +193,28 @@ public class CardRepositoryMySql implements ICardRepository {
                 WHERE user_owned_cards.id = ?
                 """;
 
-        List<Card> results = jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("user_owned_cards.id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url"),
-                        rs.getBoolean("for_swapping"),
-                        rs.getBoolean("card_visible")
-                ), ownedCardId
-        );
+        try {
+            List<Card> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("user_owned_cards.id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url"),
+                            rs.getBoolean("for_swapping"),
+                            rs.getBoolean("card_visible")
+                    ), ownedCardId
+            );
 
-        if (results.isEmpty()) {
-            return Optional.empty();
+            if (results.isEmpty()) {
+                return Optional.empty();
+            }
+            return Optional.of(results.getFirst());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findUserCardByOwnedCardId()", e);
         }
-        return Optional.of(results.getFirst());
     }
 
     @Override
@@ -184,22 +225,10 @@ public class CardRepositoryMySql implements ICardRepository {
                 card_visible = ?
                 WHERE id = ?""";
 
-        jdbcTemplate.update(sql, card.isForSwapping(), card.isVisible(), card.getId());
-    }
-
-    /*
-    try {
-            String sql = "SELECT DISTINCT type FROM cards ORDER BY type ASC";
-
-            return jdbcTemplate.query(sql, (rs, rowNum) ->
-                    CardType_ENUM.valueOf(rs.getString("type"))
-            );
-
-        } catch (DataAccessException e) {
-            // Spring wraps SQLExceptions into DataAccessException
-            //log error ("Database error occurred: {}", e.getMessage(), e);
+        try {
+            jdbcTemplate.update(sql, card.isForSwapping(), card.isVisible(), card.getId());
         } catch (Exception e) {
-            //log error ("Unexpected error: {}", e.getMessage(), e);
+            throw new DataAccessException("Error in updateUserOwnedCard()", e);
         }
-     */
+    }
 }

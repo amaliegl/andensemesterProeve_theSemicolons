@@ -3,6 +3,7 @@ package org.example.andensemesterproeve_thesemicolons.application;
 import org.example.andensemesterproeve_thesemicolons.domain.Event;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
+import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,65 +13,130 @@ import java.util.List;
 public class EventService {
 
     private final IEventRepository eventRepository;
+    private final ExceptionService exceptionService;
 
-    public EventService(IEventRepository eventRepository) {
+    public EventService(IEventRepository eventRepository, ExceptionService exceptionService) {
         this.eventRepository = eventRepository;
+        this.exceptionService = exceptionService;
     }
 
     public List<Event> getAllEvents() {
-        return eventRepository.findAllEvents();
+        try {
+            return eventRepository.findAllEvents();
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public boolean signUpForEvent(int userId, int eventId) {
-        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
-        Event event = getEventById(eventId);
+        try {
+            int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
+            Event event = getEventById(eventId);
 
-        if (event.getEventStatus() != EventStatus_ENUM.Aaben_for_tilmelding) {
-            return false;
-        }
+            if (event.getEventStatus() != EventStatus_ENUM.Aaben_for_tilmelding) {
+                return false;
+            }
 
-        if (currentNumberOfParticipants >= event.getMaxPlayers()) {
-            return false;
-        }
-        if (!eventRepository.UserIsAlreadySignedUp(userId, eventId)) {
-            eventRepository.signUserUpForEvent(userId, eventId);
             if (currentNumberOfParticipants >= event.getMaxPlayers()) {
-                eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
+                return false;
+            }
+            if (!eventRepository.userIsAlreadySignedUp(userId, eventId)) {
+                eventRepository.signUserUpForEvent(userId, eventId);
+                if (currentNumberOfParticipants >= event.getMaxPlayers()) {
+                    eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
+                }
+                return true;
             }
             return true;
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
         }
-        return true;
     }
 
     public Event getEventById(int eventId) {
-        return eventRepository.getEventById(eventId);
+        try {
+            return eventRepository.getEventById(eventId);
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public List<Event> getAllMyArrangedEvents(int userId) {
-        return eventRepository.FindAllMyArrangedEvents(userId);
+        try {
+            return eventRepository.findAllMyArrangedEvents(userId);
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public List<Event> getALLmySignedUpEvents(int userId) {
-        return eventRepository.findALLmySignedUpEvents(userId);
+        try {
+            return eventRepository.findAllMySignedUpEvents(userId);
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public void cancelRegistrationForEvent(int userId, int eventId) {
-        eventRepository.cancelRegistrationToEvent(userId, eventId);
+        try {
+            eventRepository.cancelRegistrationToEvent(userId, eventId);
 
-        Event event = eventRepository.getEventById(eventId);
-        int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
-        if (currentNumberOfParticipants <= event.getMaxPlayers()) {
-            eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Aaben_for_tilmelding.name());
+            Event event = eventRepository.getEventById(eventId);
+            int currentNumberOfParticipants = eventRepository.getNumberOfParticipantsFromId(eventId);
+            if (currentNumberOfParticipants <= event.getMaxPlayers()) {
+                eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Aaben_for_tilmelding.name());
+            }
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
         }
-
     }
 
     public void createNewEvent(Event event) {
-        eventRepository.createEvent(event);
+        try {
+            eventRepository.createEvent(event);
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public void updateEvent(Event event) {
-        eventRepository.updateEventInfo(event);
+        try {
+            eventRepository.updateEventInfo(event);
+        } catch (DataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
+        } catch (Exception e) {
+            exceptionService.logException(e);
+            throw e;
+        }
     }
 
     public List<Event> getAllMyArrangedEventsFiltered(List<Event> events, String open, String concluded){

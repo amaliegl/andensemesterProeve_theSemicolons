@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.CardType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Rarity_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IUserRepository;
+import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class UserRepositoryMySql implements IUserRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public UserRepositoryMySql(JdbcTemplate jdbcTemplate){
+    public UserRepositoryMySql(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -26,15 +27,19 @@ public class UserRepositoryMySql implements IUserRepository {
                 SELECT password FROM users WHERE username = ?
                 """;
 
-        List<String> results = jdbcTemplate.query(sql, (rs, rowNum) ->
-                (rs.getString("password")
-                ), username
-        );
+        try {
+            List<String> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                    (rs.getString("password")
+                    ), username
+            );
 
-        if (results.isEmpty()) {
-            return Optional.empty();
+            if (results.isEmpty()) {
+                return Optional.empty();
+            }
+            return Optional.of(results.getFirst());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findPasswordByUsername()", e);
         }
-        return Optional.of(results.getFirst());
     }
 
     @Override
@@ -43,23 +48,27 @@ public class UserRepositoryMySql implements IUserRepository {
                 SELECT id, username, email, title FROM users WHERE username = ?
                 """;
 
-        List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
-                new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        Title_ENUM.valueOf(rs.getString("title"))
-                ), username
-        );
+        try {
+            List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new User(
+                            rs.getInt("id"),
+                            rs.getString("username"),
+                            rs.getString("email"),
+                            Title_ENUM.valueOf(rs.getString("title"))
+                    ), username
+            );
 
-        if (results.isEmpty()) {
-            return Optional.empty();
+            if (results.isEmpty()) {
+                return Optional.empty();
+            }
+
+            results.getFirst().setCards(findAllCardsForUser(results.getFirst()));
+            results.getFirst().setDecks(findAllDecksForUser(results.getFirst()));
+
+            return Optional.of(results.getFirst());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findByUsername()", e);
         }
-
-        results.getFirst().setCards(findAllCardsForUser(results.getFirst()));
-        results.getFirst().setDecks(findAllDecksForUser(results.getFirst()));
-
-        return Optional.of(results.getFirst());
     }
 
     @Override
@@ -70,19 +79,23 @@ public class UserRepositoryMySql implements IUserRepository {
                 WHERE user_id = ?
                 """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Card(
-                        rs.getInt("user_owned_cards.id"),
-                        rs.getString("name"),
-                        CardType_ENUM.valueOf(rs.getString("type")),
-                        rs.getString("set_abbreviation"),
-                        Rarity_ENUM.valueOf(rs.getString("rarity")),
-                        rs.getString("image_url"),
-                        rs.getString("reference_url"),
-                        rs.getBoolean("for_swapping"),
-                        rs.getBoolean("card_visible")
-                ), user.getId()
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Card(
+                            rs.getInt("user_owned_cards.id"),
+                            rs.getString("name"),
+                            CardType_ENUM.valueOf(rs.getString("type")),
+                            rs.getString("set_abbreviation"),
+                            Rarity_ENUM.valueOf(rs.getString("rarity")),
+                            rs.getString("image_url"),
+                            rs.getString("reference_url"),
+                            rs.getBoolean("for_swapping"),
+                            rs.getBoolean("card_visible")
+                    ), user.getId()
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllCardsForUser()", e);
+        }
     }
 
     @Override
@@ -91,22 +104,30 @@ public class UserRepositoryMySql implements IUserRepository {
                 SELECT * FROM decks WHERE user_id = ?
                 """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                        new Deck(
-                                rs.getInt("id"),
-                                rs.getString("name"),
-                                rs.getString("format")
-                        ), user.getId()
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Deck(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("format")
+                    ), user.getId()
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllDecksForUser()", e);
+        }
     }
 
     @Override
     public List<Integer> findCardIdsForDeck(Deck deck) {
         String sql = "SELECT * FROM deck_cards WHERE deck_id = ?";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                rs.getInt("user_owned_card_id"), deck.getId()
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    rs.getInt("user_owned_card_id"), deck.getId()
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findCardIdsForDeck()", e);
+        }
     }
 
     @Override
@@ -116,8 +137,12 @@ public class UserRepositoryMySql implements IUserRepository {
                 VALUES (?, ?, ?, 'Spiller')
                 """;
 
-        jdbcTemplate.update(sql,
-                user.getUsername(), user.getPassword(), user.getEmail());
+        try {
+            jdbcTemplate.update(sql,
+                    user.getUsername(), user.getPassword(), user.getEmail());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in createStandardUser()", e);
+        }
     }
 
     @Override
@@ -125,34 +150,45 @@ public class UserRepositoryMySql implements IUserRepository {
         String sql = "SELECT username, title FROM users ORDER BY username ASC";
         //Intentionally selecting specific columns to avoid fetching passwords
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new User(
-                        rs.getString("username"),
-                        Title_ENUM.valueOf(rs.getString("title"))
-                )
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new User(
+                            rs.getString("username"),
+                            Title_ENUM.valueOf(rs.getString("title"))
+                    )
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllUsers()", e);
+        }
     }
 
     @Override
     public List<Title_ENUM> findAllUniqueTitles() {
         String sql = "SELECT DISTINCT title FROM users ORDER BY title ASC";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                Title_ENUM.valueOf(rs.getString("title"))
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    Title_ENUM.valueOf(rs.getString("title"))
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllUniqueTitles()", e);
+        }
     }
 
     @Override
     public List<User> findAllUsersByTitle(Title_ENUM title) {
         String sql = "SELECT username, title FROM users WHERE title = ? ORDER BY username ASC";
         //Intentionally selecting specific columns to avoid fetching passwords
-
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new User(
-                        rs.getString("username"),
-                        Title_ENUM.valueOf(rs.getString("title"))
-                ), title.name()
-        );
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new User(
+                            rs.getString("username"),
+                            Title_ENUM.valueOf(rs.getString("title"))
+                    ), title.name()
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllUsersByTitle()", e);
+        }
     }
 
     @Override
@@ -163,24 +199,32 @@ public class UserRepositoryMySql implements IUserRepository {
                 WHERE username = ?
                 """;
 
-        jdbcTemplate.update(sql, user.getTitle().name(), user.getUsername());
+        try {
+            jdbcTemplate.update(sql, user.getTitle().name(), user.getUsername());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in adminEditUser()", e);
+        }
     }
 
     @Override
     public Optional<User> adminFindUserByUsername(String username) {
         String sql = "SELECT username, title FROM users WHERE username = ?";
 
-        List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
-                new User(
-                        rs.getString("username"),
-                        Title_ENUM.valueOf(rs.getString("title"))
-                ), username
-        );
+        try {
+            List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new User(
+                            rs.getString("username"),
+                            Title_ENUM.valueOf(rs.getString("title"))
+                    ), username
+            );
 
-        if (results.isEmpty()) {
-            return Optional.empty();
+            if (results.isEmpty()) {
+                return Optional.empty();
+            }
+
+            return Optional.of(results.getFirst());
+        } catch (Exception e) {
+            throw new DataAccessException("Error in adminFindUserByUsername()", e);
         }
-
-        return Optional.of(results.getFirst());
     }
 }

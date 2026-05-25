@@ -4,6 +4,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.*;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
+import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,24 +26,29 @@ public class EventRepositoryMySql implements IEventRepository {
                             JOIN users ON events.creator_id = users.id
                 """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            User eventCreator = new User();
-            eventCreator.setId(rs.getInt("creator_id"));
-            eventCreator.setUsername("username");
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) -> {
+                User eventCreator = new User();
+                eventCreator.setId(rs.getInt("creator_id"));
+                eventCreator.setUsername("username");
 
 
-            return new Event(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    eventCreator,
-                    EventType_ENUM.valueOf(rs.getString("event_type")),
-                    rs.getString("format"),
-                    rs.getInt("max_players"),
-                    rs.getDate("event_date").toLocalDate(),
-                    rs.getTime("event_time").toLocalTime(),
-                    EventStatus_ENUM.valueOf(rs.getString("event_status"))
-            );
-        });
+                return new Event(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        eventCreator,
+                        EventType_ENUM.valueOf(rs.getString("event_type")),
+                        rs.getString("format"),
+                        rs.getInt("max_players"),
+                        rs.getDate("event_date").toLocalDate(),
+                        rs.getTime("event_time").toLocalTime(),
+                        EventStatus_ENUM.valueOf(rs.getString("event_status"))
+                );
+            });
+
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllEvents()", e);
+        }
     }
 
     @Override
@@ -51,58 +57,75 @@ public class EventRepositoryMySql implements IEventRepository {
                 INSERT INTO event_users (event_id, user_id) VALUES(?,?)
                 """;
 
-        jdbcTemplate.update(sql, eventId, userId);
+        try {
+            jdbcTemplate.update(sql, eventId, userId);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in signUserUpForEvent()", e);
+        }
     }
 
     @Override
-    public Boolean UserIsAlreadySignedUp(int userId, int eventId) {
+    public Boolean userIsAlreadySignedUp(int userId, int eventId) {
         String sql= """
                 SELECT COUNT(*) FROM event_users WHERE event_id= ? AND user_id= ?
                 """;
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId, userId); //vi bruger Integer fremfor int, fordi vi kan få returneret null
-        return count != null && count>0;
+        try {
+            Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId, userId); //vi bruger Integer fremfor int, fordi vi kan få returneret null
+            return count != null && count > 0;
+        } catch (Exception e) {
+            throw new DataAccessException("Error in userIsAlreadySignedUp()", e);
+        }
     }
 
     @Override
-    public List<Event> FindAllMyArrangedEvents(int userId) {
+    public List<Event> findAllMyArrangedEvents(int userId) {
         String sql = """
                 SELECT * FROM events
                 WHERE creator_id = ?
                 """;
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new Event(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        EventType_ENUM.valueOf(rs.getString("event_type")),
-                        rs.getString("format"),
-                        rs.getInt("max_players"),
-                        rs.getDate("event_date").toLocalDate(),
-                        rs.getTime("event_time").toLocalTime(),
-                        EventStatus_ENUM.valueOf(rs.getString("event_status"))
-                ) ,userId
-        );
+
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Event(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            EventType_ENUM.valueOf(rs.getString("event_type")),
+                            rs.getString("format"),
+                            rs.getInt("max_players"),
+                            rs.getDate("event_date").toLocalDate(),
+                            rs.getTime("event_time").toLocalTime(),
+                            EventStatus_ENUM.valueOf(rs.getString("event_status"))
+                    ), userId
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllMyArrangedEvents()", e);
+        }
     }
 
     @Override
-    public List<Event> findALLmySignedUpEvents(int userId) {
+    public List<Event> findAllMySignedUpEvents(int userId) {
         String sql = """
                 SELECT events.* FROM events
                                 INNER JOIN event_users ON events.id = event_users.event_id
                                 WHERE event_users.user_id = ?
                 """;
-//TODO - sørg for at opdatere event_status i databasen
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-            new Event(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    EventType_ENUM.valueOf(rs.getString("event_type")),
-                    rs.getString("format"),
-                    rs.getInt("max_players"),
-                    rs.getDate("event_date").toLocalDate(),
-                    rs.getTime("event_time").toLocalTime(),
-                    EventStatus_ENUM.valueOf(rs.getString("event_status"))
-            ) ,userId
-        );
+
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) ->
+                    new Event(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            EventType_ENUM.valueOf(rs.getString("event_type")),
+                            rs.getString("format"),
+                            rs.getInt("max_players"),
+                            rs.getDate("event_date").toLocalDate(),
+                            rs.getTime("event_time").toLocalTime(),
+                            EventStatus_ENUM.valueOf(rs.getString("event_status"))
+                    ), userId
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in findAllMySignedUpEvents()", e);
+        }
     }
 
     @Override
@@ -111,7 +134,11 @@ public class EventRepositoryMySql implements IEventRepository {
                 DELETE FROM event_users WHERE user_id=? AND event_id=?
                 """;
 
-        jdbcTemplate.update(sql, userId, eventId);
+        try {
+            jdbcTemplate.update(sql, userId, eventId);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in cancelRegistrationToEvent()", e);
+        }
     }
 
     @Override
@@ -121,7 +148,11 @@ public class EventRepositoryMySql implements IEventRepository {
                 VALUES (?,?,?,?,?,?,?,'Aaben_for_tilmelding' );
         """;
 
-       jdbcTemplate.update(sql, event.getCreator().getId(), event.getName(), event.getType().name(), event.getFormat(), event.getMaxPlayers(), event.getDate(), event.getTime());
+       try {
+           jdbcTemplate.update(sql, event.getCreator().getId(), event.getName(), event.getType().name(), event.getFormat(), event.getMaxPlayers(), event.getDate(), event.getTime());
+       } catch (Exception e) {
+           throw new DataAccessException("Error in createEvent()", e);
+       }
     }
 
     @Override
@@ -132,22 +163,26 @@ public class EventRepositoryMySql implements IEventRepository {
                                 WHERE id = ?
                 """;
 
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
-            User eventCreator = new User();
-            eventCreator.setId(rs.getInt("creator_id"));
+        try {
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+                User eventCreator = new User();
+                eventCreator.setId(rs.getInt("creator_id"));
 
-            return new Event(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    eventCreator,
-                    EventType_ENUM.valueOf(rs.getString("event_type")),
-                    rs.getString("format"),
-                    rs.getInt("max_players"),
-                    rs.getDate("event_date").toLocalDate(),
-                    rs.getTime("event_time").toLocalTime(),
-                    EventStatus_ENUM.valueOf(rs.getString("event_status"))
-            );
-        }, eventId);
+                return new Event(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        eventCreator,
+                        EventType_ENUM.valueOf(rs.getString("event_type")),
+                        rs.getString("format"),
+                        rs.getInt("max_players"),
+                        rs.getDate("event_date").toLocalDate(),
+                        rs.getTime("event_time").toLocalTime(),
+                        EventStatus_ENUM.valueOf(rs.getString("event_status"))
+                );
+            }, eventId);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in getEventById()", e);
+        }
     }
 
 
@@ -158,11 +193,16 @@ public class EventRepositoryMySql implements IEventRepository {
         String sql= """
                 SELECT COUNT(*) FROM event_users WHERE event_id= ?
                 """;
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId);
-        if (count == null){
-            return 0;
+
+        try {
+            Integer count = jdbcTemplate.queryForObject(sql, Integer.class, eventId);
+            if (count == null) {
+                return 0;
+            }
+            return count;
+        } catch (Exception e) {
+            throw new DataAccessException("Error in getNumberOfParticipantsFromId()", e);
         }
-        return count;
     }
 
     @Override
@@ -173,8 +213,11 @@ public class EventRepositoryMySql implements IEventRepository {
                 WHERE id = ?
                 """;
 
-        jdbcTemplate.update(sql, newStatus, eventId);
-
+        try {
+            jdbcTemplate.update(sql, newStatus, eventId);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in updateEventStatus()", e);
+        }
     }
 
     @Override
@@ -186,7 +229,11 @@ public class EventRepositoryMySql implements IEventRepository {
                 AND event_status != 'Afholdt'
                 """;
 
-        jdbcTemplate.update(sql);
+        try {
+            jdbcTemplate.update(sql);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in updateStatusForConcludedEvents()", e);
+        }
     }
 
     @Override
@@ -198,7 +245,12 @@ public class EventRepositoryMySql implements IEventRepository {
                 AND event_status != 'Lukket_for_tilmelding'
                 AND event_status != 'Afholdt'
                 """;
-        jdbcTemplate.update(sql);
+
+        try {
+            jdbcTemplate.update(sql);
+        } catch (Exception e) {
+            throw new DataAccessException("Error in updateStatusForOngoingEvents()", e);
+        }
 
     }
 
@@ -215,14 +267,18 @@ public class EventRepositoryMySql implements IEventRepository {
                 WHERE id=?
                 """;
 
-        jdbcTemplate.update(sql,
-                event.getName(),
-                event.getType().name(),
-                event.getFormat(),
-                event.getMaxPlayers(),
-                event.getDate(),
-                event.getTime(),
-                event.getId()
-                );
+        try {
+            jdbcTemplate.update(sql,
+                    event.getName(),
+                    event.getType().name(),
+                    event.getFormat(),
+                    event.getMaxPlayers(),
+                    event.getDate(),
+                    event.getTime(),
+                    event.getId()
+            );
+        } catch (Exception e) {
+            throw new DataAccessException("Error in updateEventInfo()", e);
+        }
     }
 }
