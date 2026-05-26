@@ -19,6 +19,10 @@ public class AdminController {
     @GetMapping
     public String getAdminPage(HttpSession session){
         User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
+
         if (userService.confirmUserIsAdmin(sessionUser)) {
             return "admin/adminPage";
         }
@@ -29,6 +33,9 @@ public class AdminController {
     public String getAllUsers(@RequestParam(required = false) String selectedTitleSort,
                               HttpSession session, Model model){
         User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
 
         if (userService.confirmUserIsAdmin(sessionUser)) {
             model.addAttribute("titles", Title_ENUM.values());
@@ -51,6 +58,9 @@ public class AdminController {
     public String getEditUserPage(@PathVariable String username,
                                   HttpSession session, Model model){
         User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
 
         if (userService.confirmUserIsAdmin(sessionUser)) {
             User user = userService.adminFindUserByUsername(sessionUser, username);
@@ -66,6 +76,9 @@ public class AdminController {
     @PostMapping("/allUsers/editUser")
     public String submitEditUserForm(@ModelAttribute User userToEdit, HttpSession session){
         User sessionUser = (User) session.getAttribute("currentUser");
+        if (sessionUser == null) {
+            return "redirect:/login";
+        }
 
         if (userService.confirmUserIsAdmin(sessionUser)) {
             userService.adminEditUser(sessionUser, userToEdit);
