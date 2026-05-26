@@ -7,6 +7,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_EN
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
+import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,8 +16,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class AndensemesterProeveTheSemicolonsApplicationTests {
@@ -98,6 +98,24 @@ class AndensemesterProeveTheSemicolonsApplicationTests {
 
         List<Event> actualList = eventService.getAllMyArrangedEvents(testUser.getId());
         assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    void signUpForEventAndTestIfEventStatusIsUpdated() {
+        IEventRepository mockRepository = mock(IEventRepository.class);
+        ExceptionService mockExceptionService = mock(ExceptionService.class);
+        EventService eventService = new EventService(mockRepository, mockExceptionService);
+        User testUser = new User(1, "testUser", "testUser@email.com", Title_ENUM.Admin);
+        Event testEvent = new Event(1, "fun", EventType_ENUM.Casual, "Commander", 1, LocalDate.now(), LocalTime.of(11, 23, 43), EventStatus_ENUM.Aaben_for_tilmelding);
+
+        when(mockRepository.getEventById(testEvent.getId())).thenReturn(testEvent);
+        when(mockRepository.getNumberOfParticipantsFromId(testEvent.getId())).thenReturn(0);
+        when(mockRepository.userIsAlreadySignedUp(testUser.getId(), testEvent.getId())).thenReturn(false);
+
+        boolean result = eventService.signUpForEvent(testUser.getId(), testEvent.getId());
+        assertTrue(result);
+
+        verify(mockRepository, times(1)).updateEventStatus(testEvent.getId(), EventStatus_ENUM.Fuldt_booket.name());
     }
 
 
