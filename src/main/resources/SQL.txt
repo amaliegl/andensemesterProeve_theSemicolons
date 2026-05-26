@@ -1,3 +1,9 @@
+----- NOTE: Alle oprettede brugere har rolle "Spiller". For at få en "Admin" bruger, opret da en almindelig bruger gennem
+----- hjemmesiden og lav derefter en "UPDATE users SET title = 'Admin' WHERE id = xxx" direkte i databasen for at opgradere
+----- til admin. Denne admin-bruger vil herefter på hjemmesiden kunne ændre alle andre brugeres rolle på admin-siden
+----- (link findes på forsiden når admin er logget ind)
+
+
 INSERT INTO cards (name, type, set_abbreviation, rarity, image_url, reference_url)
 VALUES ('Clowning Around', 'Sorcery', 'UNF', 'Common', 'https://gatherer-static.wizards.com/Cards/medium/321287A8078AF9F4D6F8CE39542CFC5AA2784525020F1464F662B18FB7FEF4D8.webp', 'https://gatherer.wizards.com/UNF/en-us/6/clowning-around');
 
