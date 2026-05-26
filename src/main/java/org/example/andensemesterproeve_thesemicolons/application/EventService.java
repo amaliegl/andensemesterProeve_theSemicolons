@@ -46,7 +46,8 @@ public class EventService {
             }
             if (!eventRepository.userIsAlreadySignedUp(userId, eventId)) {
                 eventRepository.signUserUpForEvent(userId, eventId);
-                if (currentNumberOfParticipants >= event.getMaxPlayers()) {
+                int newNumberOfParticipants = currentNumberOfParticipants + 1;
+                if (newNumberOfParticipants >= event.getMaxPlayers()) {
                     eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Fuldt_booket.name());
                 }
                 return true;
