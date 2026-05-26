@@ -7,7 +7,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_EN
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
-import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -117,6 +117,5 @@ class AndensemesterProeveTheSemicolonsApplicationTests {
 
         verify(mockRepository, times(1)).updateEventStatus(testEvent.getId(), EventStatus_ENUM.Fuldt_booket.name());
     }
-
 
 }
