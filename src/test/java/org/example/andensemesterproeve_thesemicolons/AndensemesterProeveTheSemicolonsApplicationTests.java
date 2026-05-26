@@ -7,7 +7,6 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_EN
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.Title_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
