@@ -6,6 +6,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.User;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IDeckRepository;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IUserRepository;
 import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -130,6 +131,9 @@ public class DeckService {
             for (Integer cardId : cardIds) {
                 deck.addCard(deckRepository.findOwnedCardByOwnedCardId(cardId));
             }
+        } catch (EmptyResultDataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
         } catch (DataAccessException e) {
             exceptionService.logException(e);
             throw e;

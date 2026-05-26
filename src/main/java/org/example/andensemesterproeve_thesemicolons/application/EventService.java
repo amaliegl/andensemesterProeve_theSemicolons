@@ -4,6 +4,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.Event;
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -53,6 +54,9 @@ public class EventService {
                 return true;
             }
             return true;
+        } catch (EmptyResultDataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
         } catch (DataAccessException e) {
             exceptionService.logException(e);
             throw e;
@@ -65,6 +69,9 @@ public class EventService {
     public Event getEventById(int eventId) {
         try {
             return eventRepository.getEventById(eventId);
+        } catch (EmptyResultDataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
         } catch (DataAccessException e) {
             exceptionService.logException(e);
             throw e;
@@ -107,6 +114,9 @@ public class EventService {
             if (currentNumberOfParticipants <= event.getMaxPlayers()) {
                 eventRepository.updateEventStatus(eventId, EventStatus_ENUM.Aaben_for_tilmelding.name());
             }
+        } catch (EmptyResultDataAccessException e) {
+            exceptionService.logException(e);
+            throw e;
         } catch (DataAccessException e) {
             exceptionService.logException(e);
             throw e;

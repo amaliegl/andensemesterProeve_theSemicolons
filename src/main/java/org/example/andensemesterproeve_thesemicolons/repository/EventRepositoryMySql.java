@@ -5,6 +5,7 @@ import org.example.andensemesterproeve_thesemicolons.domain.enums.EventStatus_EN
 import org.example.andensemesterproeve_thesemicolons.domain.enums.EventType_ENUM;
 import org.example.andensemesterproeve_thesemicolons.domain.interfacesRepo.IEventRepository;
 import org.example.andensemesterproeve_thesemicolons.exceptions.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -65,7 +66,7 @@ public class EventRepositoryMySql implements IEventRepository {
     }
 
     @Override
-    public Boolean userIsAlreadySignedUp(int userId, int eventId) {
+    public Boolean userIsAlreadySignedUp(int userId, int eventId) throws EmptyResultDataAccessException {
         String sql= """
                 SELECT COUNT(*) FROM event_users WHERE event_id= ? AND user_id= ?
                 """;
@@ -156,7 +157,7 @@ public class EventRepositoryMySql implements IEventRepository {
     }
 
     @Override
-    public Event getEventById(int eventId) {
+    public Event getEventById(int eventId) throws EmptyResultDataAccessException {
 
         String sql = """
                 SELECT * FROM events
@@ -189,7 +190,7 @@ public class EventRepositoryMySql implements IEventRepository {
 
 
     @Override
-    public int getNumberOfParticipantsFromId(int eventId) {
+    public int getNumberOfParticipantsFromId(int eventId) throws EmptyResultDataAccessException {
         String sql= """
                 SELECT COUNT(*) FROM event_users WHERE event_id= ?
                 """;
