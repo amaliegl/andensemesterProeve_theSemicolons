@@ -25,18 +25,6 @@ public class Deck {
         return name;
     }
 
-    public String getFormat() {
-        return format;
-    }
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
     public void setName(String name) {
         if (name.isBlank()) {
             this.name = "Intet navn";
@@ -45,11 +33,23 @@ public class Deck {
         }
     }
 
+    public String getFormat() {
+        return format;
+    }
+
     public void setFormat(String format) {
         if (format.isBlank()) {
             this.format = null;
         } else {
             this.format = format;
         }
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
     }
 }

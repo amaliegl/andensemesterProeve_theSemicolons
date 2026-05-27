@@ -37,20 +37,12 @@ public class User {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -61,20 +53,12 @@ public class User {
         this.email = email;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDecks(List<Deck> decks) {
-        this.decks = decks;
-    }
-
-    public List<Deck> getDecks() {
-        return decks;
-    }
-
-    public List<Card> getCards() {
-        return cards;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Title_ENUM getTitle() {
@@ -82,6 +66,20 @@ public class User {
     }
 
     public void setTitle(Title_ENUM title) { this.title = title; }
+
+    public List<Card> getCards() { return cards; }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<Deck> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<Deck> decks) {
+        this.decks = decks;
+    }
 
     public void validateValues() {
         if (username == null || username.isEmpty() || username.trim().isEmpty() ||

@@ -26,7 +26,7 @@ public class EventController {
         }
         model.addAttribute("sessionUser", user);
         List<Event> myArrangedEvents = eventService.getAllMyArrangedEventsSorted(sortBy, user.getId());
-        List<Event> mySignedUpEvents = eventService.getALLmySignedUpEventsSorted(sortBy, user.getId());
+        List<Event> mySignedUpEvents = eventService.getAllMySignedUpEventsSorted(sortBy, user.getId());
         List<Event> myArrangedEventsFiltered = eventService.getAllMyArrangedEventsFiltered(myArrangedEvents, open, concluded);
         model.addAttribute("mySignedUpEvents", mySignedUpEvents);
         model.addAttribute("myArrangedEvents", myArrangedEvents);

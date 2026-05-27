@@ -21,7 +21,8 @@ public class Event {
 
     public Event(){}
 
-    public Event(int id, String name, User creator, EventType_ENUM type, String format, int maxPlayers, LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
+    public Event(int id, String name, User creator, EventType_ENUM type, String format,
+                 int maxPlayers, LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
         this.id = id;
         this.name = name;
         this.creator = creator;
@@ -33,7 +34,8 @@ public class Event {
         this.eventStatus = eventStatus;
     }
 
-    public Event(int id, String name, EventType_ENUM type, String format, int maxPlayers, LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
+    public Event(int id, String name, EventType_ENUM type, String format, int maxPlayers,
+                 LocalDate date, LocalTime time, EventStatus_ENUM eventStatus) {
         this.id = id;
         this.name = name;
         this.type = type;

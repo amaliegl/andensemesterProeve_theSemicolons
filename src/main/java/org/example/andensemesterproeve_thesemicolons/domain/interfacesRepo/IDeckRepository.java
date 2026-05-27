@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IDeckRepository {
 
-    Optional<Deck> findDeckById(int deckID);
+    Optional<Deck> findDeckById(int deckId);
 
     List<Integer> findOwnedCardIdsInDeckByDeckId(int deckId);
 

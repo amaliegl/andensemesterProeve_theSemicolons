@@ -66,7 +66,7 @@ public class EventRepositoryMySql implements IEventRepository {
     }
 
     @Override
-    public Boolean userIsAlreadySignedUp(int userId, int eventId) throws EmptyResultDataAccessException {
+    public boolean userIsAlreadySignedUp(int userId, int eventId) throws EmptyResultDataAccessException {
         String sql= """
                 SELECT COUNT(*) FROM event_users WHERE event_id= ? AND user_id= ?
                 """;

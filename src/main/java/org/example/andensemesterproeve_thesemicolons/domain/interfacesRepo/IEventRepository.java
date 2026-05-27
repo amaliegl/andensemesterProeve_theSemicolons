@@ -9,7 +9,7 @@ public interface IEventRepository {
 
     void signUserUpForEvent(int userId, int eventId);
 
-    Boolean userIsAlreadySignedUp(int userId, int eventId);
+    boolean userIsAlreadySignedUp(int userId, int eventId);
 
     Event getEventById(int eventId);
 

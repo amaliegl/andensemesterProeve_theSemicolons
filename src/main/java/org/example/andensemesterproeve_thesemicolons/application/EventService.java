@@ -93,7 +93,7 @@ public class EventService {
         }
     }
 
-    public List<Event> getALLmySignedUpEvents(int userId) {
+    public List<Event> getAllMySignedUpEvents(int userId) {
         try {
             return eventRepository.findAllMySignedUpEvents(userId);
         } catch (DataAccessException e) {
@@ -171,13 +171,14 @@ public class EventService {
         return events;
     }
 
-    public List<Event> getAllMyArrangedEventsSorted(String sortBy, int UserId){
-        List<Event> events = getAllMyArrangedEvents(UserId);
+    public List<Event> getAllMyArrangedEventsSorted(String sortBy, int userId){
+        List<Event> events = getAllMyArrangedEvents(userId);
         sortEventList(sortBy, events);
         return events;
     }
-    public List<Event> getALLmySignedUpEventsSorted(String sortBy, int UserId){
-        List<Event> events = getALLmySignedUpEvents(UserId);
+
+    public List<Event> getAllMySignedUpEventsSorted(String sortBy, int userId){
+        List<Event> events = getAllMySignedUpEvents(userId);
         sortEventList(sortBy, events);
         return events;
     }
@@ -191,27 +192,24 @@ public class EventService {
             } else if (sortBy.equals("casual")) {
                 sortByCasual(events);
             } else if (sortBy.equals("tournament")) {
-                sortBYTournament(events);
+                sortByTournament(events);
 
             }
         }
     }
 
-    public void sortByDate(List<Event> events) {
+    private void sortByDate(List<Event> events) {
         events.sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
     }
 
-    public void sortByOpenForSignUp(List<Event> events) {
+    private void sortByOpenForSignUp(List<Event> events) {
         events.sort((e1, e2)-> e1.getEventStatus().compareTo(e2.getEventStatus()));
     }
-    public void sortByCasual(List<Event> events) {
+    private void sortByCasual(List<Event> events) {
         events.sort((e1, e2) -> e1.getType().compareTo(e2.getType())); //Sorting by 1st enum on the list (casual)
     }
 
-    public void sortBYTournament(List<Event> events) {
+    private void sortByTournament(List<Event> events) {
         events.sort((e1, e2)-> e2.getType().compareTo(e1.getType())); //Sorting by 2nd enum on the list (turnering)
     }
-
-
 }
-

@@ -43,6 +43,10 @@ public class Card {
 
     public int getId() { return id;}
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() { return name;}
 
     public CardType_ENUM getType() {return type;}
@@ -58,10 +62,6 @@ public class Card {
     public boolean isForSwapping() {return forSwapping;}
 
     public boolean isVisible() {return visible;}
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setForSwapping(boolean forSwapping) {
         this.forSwapping = forSwapping;
